@@ -4,27 +4,48 @@ import { createSession } from '../services/interview-engine.service.js';
 
 const router = Router();
 
-router.get('/sessions', (_req, res) => {
-  res.json(sessionStore.getAll());
+router.get('/sessions', async (_req, res) => {
+  try {
+    const sessions = await sessionStore.getAll();
+    res.json(sessions);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    res.status(500).json({ error: message });
+  }
 });
 
-router.post('/sessions', (req, res) => {
-  const { track, mode, provider } = req.body as { track: string; mode: string; provider: string };
-  if (!track || !mode || !provider) {
-    res.status(400).json({ error: 'track, mode, and provider are required.' });
-    return;
+router.post('/sessions', async (req, res) => {
+  try {
+    const { track, mode, provider, candidateProfileId } = req.body as {
+      track: string;
+      mode: string;
+      provider: string;
+      candidateProfileId?: string;
+    };
+    if (!track || !mode || !provider) {
+      res.status(400).json({ error: 'track, mode, and provider are required.' });
+      return;
+    }
+    const session = await createSession(track, mode, provider, candidateProfileId);
+    res.status(201).json(session);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    res.status(500).json({ error: message });
   }
-  const session = createSession(track, mode, provider);
-  res.status(201).json(session);
 });
 
-router.get('/sessions/:id', (req, res) => {
-  const session = sessionStore.get(req.params.id);
-  if (!session) {
-    res.status(404).json({ error: 'Session not found.' });
-    return;
+router.get('/sessions/:id', async (req, res) => {
+  try {
+    const session = await sessionStore.get(req.params['id']);
+    if (!session) {
+      res.status(404).json({ error: 'Session not found.' });
+      return;
+    }
+    res.json(session);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Unknown error';
+    res.status(500).json({ error: message });
   }
-  res.json(session);
 });
 
 export default router;

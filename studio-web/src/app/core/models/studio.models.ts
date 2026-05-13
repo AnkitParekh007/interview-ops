@@ -24,6 +24,8 @@ export interface InterviewSession {
   messages: InterviewMessage[];
   scorecard?: InterviewScorecard;
   studyPlan?: StudyPlan;
+  candidateProfileId?: string;
+  readinessReportId?: string;
 }
 
 export interface InterviewMessage {
@@ -71,4 +73,67 @@ export interface Provider {
   name: string;
   description: string;
   requiresKey: boolean;
+}
+
+export interface CandidateProfile {
+  id: string;
+  resumeText?: string;
+  jobDescriptionText?: string;
+  targetCompany?: string;
+  targetRole?: string;
+  seniorityLevel?: string;
+  interviewDate?: string;
+  focusAreas: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ReadinessReport {
+  id: string;
+  sessionId: string;
+  readinessScore: number;
+  hireSignal: string;
+  summary: string;
+  strengths: string[];
+  weaknesses: string[];
+  topActions: string[];
+  recommendedModes: string[];
+  weaknessMap: WeaknessMapItem[];
+  sevenDayPlan: string[];
+  fourteenDayPlan: string[];
+  thirtyDayPlan: string[];
+  createdAt: string;
+}
+
+export interface WeaknessMapItem {
+  area: string;
+  severity: 'low' | 'medium' | 'high';
+  evidence: string;
+  recommendation: string;
+}
+
+export interface StarStory {
+  id: string;
+  title: string;
+  category: 'leadership' | 'conflict' | 'failure' | 'ownership' | 'impact' | 'technical-depth' | 'collaboration' | 'ambiguity';
+  situation: string;
+  task: string;
+  action: string;
+  result: string;
+  metrics?: string;
+  tags: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface DashboardSummary {
+  totalSessions: number;
+  sessionsByMode: Record<string, number>;
+  averageReadinessScore: number;
+  strongestAreas: string[];
+  weakestAreas: string[];
+  mostPracticedTrack: string;
+  mostPracticedMode: string;
+  recentSessions: InterviewSession[];
+  recommendedNextMode: string;
 }

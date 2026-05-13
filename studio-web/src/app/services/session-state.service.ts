@@ -1,5 +1,5 @@
 import { Injectable, signal, computed } from '@angular/core';
-import { InterviewSession } from '../core/models/studio.models';
+import { InterviewSession, ReadinessReport } from '../core/models/studio.models';
 import { StudioApiService } from './studio-api.service';
 import { AvatarStateService } from './avatar-state.service';
 
@@ -10,6 +10,7 @@ export class SessionStateService {
   readonly isLoading = signal(false);
   readonly error = signal<string | null>(null);
   readonly view = signal<'setup' | 'chat' | 'results'>('setup');
+  readonly readinessReport = signal<ReadinessReport | null>(null);
 
   readonly selectedTrack = signal<string>('');
   readonly selectedMode = signal<string>('');
@@ -32,6 +33,7 @@ export class SessionStateService {
   createSession(track: string, mode: string, provider: string): void {
     this.isLoading.set(true);
     this.error.set(null);
+    this.readinessReport.set(null);
     this.avatarState.setState('greeting');
 
     this.api.createSession({ track, mode, provider }).subscribe({
@@ -52,6 +54,7 @@ export class SessionStateService {
 
   loadSession(id: string): void {
     this.isLoading.set(true);
+    this.readinessReport.set(null);
     this.api.getSession(id).subscribe({
       next: (session) => {
         this.activeSession.set(session);
@@ -60,6 +63,10 @@ export class SessionStateService {
         this.avatarState.setState(
           session.status === 'finished' ? 'celebrating' : 'speaking'
         );
+        // Load readiness report if session is finished
+        if (session.status === 'finished') {
+          this.loadReadinessReport(session.id);
+        }
       },
       error: (err) => {
         this.error.set(err.message);
@@ -103,6 +110,8 @@ export class SessionStateService {
         this.isLoading.set(false);
         this.avatarState.setState('celebrating');
         this.loadSessions();
+        // Generate readiness report automatically
+        this.generateReadinessReport(updated.id);
       },
       error: (err) => {
         this.error.set(err.message);
@@ -111,8 +120,27 @@ export class SessionStateService {
     });
   }
 
+  private generateReadinessReport(sessionId: string): void {
+    this.api.generateReadinessReport(sessionId).subscribe({
+      next: (report) => this.readinessReport.set(report),
+      error: () => {
+        // Non-critical, silently fail
+      },
+    });
+  }
+
+  private loadReadinessReport(sessionId: string): void {
+    this.api.getReadinessReport(sessionId).subscribe({
+      next: (report) => this.readinessReport.set(report),
+      error: () => {
+        // Report may not exist yet
+      },
+    });
+  }
+
   clearSession(): void {
     this.activeSession.set(null);
+    this.readinessReport.set(null);
     this.view.set('setup');
     this.avatarState.setState('idle');
     this.selectedTrack.set('');
