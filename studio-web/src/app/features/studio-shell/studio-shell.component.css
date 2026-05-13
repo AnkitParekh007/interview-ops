@@ -50,7 +50,7 @@
 .main-content {
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow: hidden;
   border-left: 1px solid var(--border);
   border-right: 1px solid var(--border);
 }

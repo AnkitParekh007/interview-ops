@@ -23,7 +23,7 @@ import { ChatComposerComponent } from './chat-composer/chat-composer.component';
         </span>
       </div>
       <div class="chat-messages" #messagesContainer>
-        @for (msg of sessionState.activeSession()?.messages; track msg.id) {
+        @for (msg of (sessionState.activeSession()?.messages ?? []); track msg.id) {
           <app-chat-message [message]="msg" />
         }
         @if (sessionState.isLoading()) {
