@@ -1,0 +1,57 @@
+{
+  "name": "interview-ops",
+  "version": "0.1.0",
+  "description": "Open-source AI interview practice system for developers",
+  "type": "module",
+  "bin": {
+    "interviewops": "./dist/cli/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/cli/index.ts",
+    "interviewops": "tsx src/cli/index.ts",
+    "doctor": "tsx src/cli/index.ts doctor",
+    "init": "tsx src/cli/index.ts init",
+    "providers": "tsx src/cli/index.ts providers",
+    "tracks": "tsx src/cli/index.ts tracks",
+    "modes": "tsx src/cli/index.ts modes",
+    "start": "tsx src/cli/index.ts start",
+    "simulate": "tsx src/cli/index.ts simulate",
+    "plan": "tsx src/cli/index.ts plan",
+    "verify": "tsx src/cli/index.ts verify",
+    "examples": "tsx src/cli/index.ts examples",
+    "answer": "tsx src/cli/index.ts answer",
+    "demo": "node scripts/demo.mjs",
+    "test": "vitest run",
+    "lint": "eslint .",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "interview",
+    "ai",
+    "cli",
+    "developer-tools",
+    "interview-prep",
+    "open-source"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "commander": "^14.0.3",
+    "dotenv": "^17.4.2",
+    "js-yaml": "^4.1.1",
+    "ora": "^9.4.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^25.7.0",
+    "@typescript-eslint/eslint-plugin": "^8.59.3",
+    "@typescript-eslint/parser": "^8.59.3",
+    "eslint": "^10.3.0",
+    "prettier": "^3.8.3",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.6"
+  }
+}

@@ -1,0 +1,24 @@
+name: Documentation Issue
+description: Report missing, incorrect, or unclear documentation
+labels: [documentation]
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Documentation location
+      placeholder: "e.g. README.md, docs/SETUP.md, CONTRIBUTING.md"
+    validations:
+      required: true
+
+  - type: textarea
+    id: issue
+    attributes:
+      label: What's wrong or missing?
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested improvement
+      placeholder: How should it be written instead?

@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+website/node_modules/
+website/build/
+website/.docusaurus/
+
+# Build output
+dist/
+
+# Environment — NEVER commit this
+.env
+
+# Generated output (user content, not tracked by default)
+output/*
+!output/.gitkeep
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Test coverage
+coverage/
+
+# Temp
+tmp/
+temp/
+
+#AI Models
+CLAUDE.MD
+.claude/*
+.claude/settings.local.json
