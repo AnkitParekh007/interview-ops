@@ -1,0 +1,73 @@
+import { Command } from 'commander';
+import path from 'path';
+import ora from 'ora';
+import chalk from 'chalk';
+import { runSession } from '../../interview/session-runner.js';
+import { writeSession, getSessionDir } from '../../output/output-writer.js';
+import { loadConfig, getOutputDir } from '../../config/config.loader.js';
+import { logger } from '../../utils/logger.js';
+
+/**
+ * `start` is an alias for `simulate`.
+ * Both commands are equivalent — `start` exists as the more intuitive
+ * entry point for new users, while `simulate` is the canonical command name.
+ */
+export function createStartCommand(): Command {
+  const cmd = new Command('start');
+  cmd.description('Start a mock interview session (alias for simulate)');
+  cmd.option('-t, --track <track>', 'Interview track (e.g. senior-frontend, angular-developer)');
+  cmd.option('-m, --mode <mode>', 'Interview mode (e.g. behavioral, frontend-architecture)');
+  cmd.option('-d, --duration <minutes>', 'Session duration in minutes', '45');
+  cmd.option('-p, --provider <provider>', 'AI provider override (mock, openai, anthropic, gemini)');
+
+  cmd.action(async (opts: { track?: string; mode?: string; duration?: string; provider?: string }) => {
+    const config = loadConfig();
+
+    const track = opts.track ?? config.project.default_track;
+    const mode = opts.mode ?? config.project.default_mode;
+    const duration = parseInt(opts.duration ?? '45', 10);
+
+    logger.section('InterviewOps — Start');
+    logger.info(`Track:    ${chalk.cyan(track)}`);
+    logger.info(`Mode:     ${chalk.magenta(mode)}`);
+    logger.info(`Duration: ${duration} minutes`);
+    logger.log('');
+
+    const spinner = ora('Generating interview session...').start();
+
+    try {
+      const session = await runSession({
+        track,
+        mode,
+        duration,
+        providerName: opts.provider,
+      });
+
+      const outputDir = getOutputDir(config);
+      const sessionDir = getSessionDir(path.resolve(process.cwd(), outputDir), session.metadata.id);
+
+      writeSession(sessionDir, session);
+
+      spinner.succeed(chalk.green('Session generated successfully!'));
+
+      logger.log('');
+      logger.success(`Session ID:  ${session.metadata.id}`);
+      logger.success(`Output:      ${sessionDir}`);
+      logger.log('');
+      logger.log(chalk.dim('Files written:'));
+      logger.log(chalk.dim('  session.md       questions.md     scorecard.md'));
+      logger.log(chalk.dim('  feedback.md      study-plan.md    ethics-notice.md'));
+      logger.log(chalk.dim('  improved-answers.md               metadata.json'));
+      logger.log('');
+      logger.info(`Provider: ${session.metadata.provider} / ${session.metadata.model}`);
+      logger.log('');
+      logger.log(chalk.dim('Tip: run `npm run verify` to validate your session output.'));
+    } catch (err) {
+      spinner.fail(chalk.red('Failed to generate session'));
+      logger.error(String(err));
+      process.exit(1);
+    }
+  });
+
+  return cmd;
+}

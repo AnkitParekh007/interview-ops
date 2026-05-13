@@ -32,9 +32,22 @@
     "cli",
     "developer-tools",
     "interview-prep",
-    "open-source"
+    "open-source",
+    "typescript",
+    "local-first",
+    "angular",
+    "react"
   ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AnkitParekh007/interview-ops.git"
+  },
+  "homepage": "https://github.com/AnkitParekh007/interview-ops#readme",
+  "bugs": {
+    "url": "https://github.com/AnkitParekh007/interview-ops/issues"
+  },
+  "author": "Akki Parekh <https://github.com/AnkitParekh007>",
   "dependencies": {
     "chalk": "^5.6.2",
     "commander": "^14.0.3",
