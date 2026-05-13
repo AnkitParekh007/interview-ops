@@ -26,7 +26,12 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "website:start": "npm --prefix website run start",
-    "website:build": "npm --prefix website run build"
+    "website:build": "npm --prefix website run build",
+    "studio": "concurrently \"npm run studio:api\" \"npm run studio:web\"",
+    "studio:api": "npm --prefix studio-api run dev",
+    "studio:web": "npm --prefix studio-web run start",
+    "studio:build": "npm --prefix studio-api run build && npm --prefix studio-web run build",
+    "studio:test": "npm --prefix studio-api run test && npm --prefix studio-web run test"
   },
   "keywords": [
     "interview",
@@ -59,6 +64,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "concurrently": "^9.1.2",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^25.7.0",
     "@typescript-eslint/eslint-plugin": "^8.59.3",

@@ -1,0 +1,102 @@
+.message {
+  padding: 4px 0;
+}
+
+.message--system {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+.system-pill {
+  padding: 6px 16px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  max-width: 80%;
+}
+
+.bubble {
+  display: flex;
+  gap: 10px;
+  max-width: 80%;
+}
+
+.interviewer-bubble {
+  align-self: flex-start;
+}
+
+.candidate-bubble {
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+.bubble-avatar {
+  font-size: 20px;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(124, 58, 237, 0.12);
+  border-radius: 50%;
+}
+
+.bubble-content {
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.interviewer-bubble .bubble-content {
+  background: var(--panel);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+}
+
+.candidate-bubble .bubble-content {
+  background: var(--panel-soft);
+  border: 1px solid var(--border);
+}
+
+.bubble-role {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.coach-box {
+  display: flex;
+  gap: 10px;
+  padding: 12px 14px;
+  background: rgba(245, 158, 11, 0.06);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: var(--radius-sm);
+  margin: 4px 0;
+}
+
+.coach-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.coach-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--warning);
+  margin-bottom: 4px;
+}
+
+.coach-text {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.5;
+}

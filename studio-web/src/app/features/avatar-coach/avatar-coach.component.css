@@ -1,0 +1,82 @@
+.coach {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--panel);
+  padding: 16px;
+  overflow-y: auto;
+  gap: 14px;
+}
+
+.avatar-area {
+  flex: 0 0 55%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+}
+
+.state-label {
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--accent);
+}
+
+.tip-box {
+  padding: 10px 12px;
+  background: var(--panel-soft);
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+  text-align: center;
+}
+
+.scores {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.score-row {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.score-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+}
+
+.score-bar {
+  height: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.score-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+
+.fill-cyan {
+  background: var(--accent-2);
+}
+
+.fill-green {
+  background: var(--success);
+}
+
+.ethics-area {
+  margin-top: auto;
+}

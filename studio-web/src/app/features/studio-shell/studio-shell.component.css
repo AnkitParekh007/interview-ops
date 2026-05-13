@@ -1,0 +1,71 @@
+.shell {
+  display: grid;
+  grid-template-rows: 48px 1fr;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.shell-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-icon {
+  font-size: 20px;
+}
+
+.logo-text {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+
+.header-badge {
+  font-size: 11px;
+  padding: 3px 10px;
+  background: rgba(124, 58, 237, 0.15);
+  color: #a78bfa;
+  border-radius: 20px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.shell-body {
+  display: grid;
+  grid-template-columns: 260px 1fr 280px;
+  overflow: hidden;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+
+@media (max-width: 1024px) {
+  .shell-body {
+    grid-template-columns: 220px 1fr;
+  }
+  .avatar-panel {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .shell-body {
+    grid-template-columns: 1fr;
+  }
+}

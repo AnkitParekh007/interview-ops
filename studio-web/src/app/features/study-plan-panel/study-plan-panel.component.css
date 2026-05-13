@@ -1,0 +1,40 @@
+.study-plan {
+  padding: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.plan-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.plan-section {
+  margin-bottom: 20px;
+}
+
+.plan-subtitle {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--accent-2);
+  margin-bottom: 10px;
+}
+
+.plan-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-left: 20px;
+}
+
+.plan-item {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.plan-item::marker {
+  color: var(--accent);
+}
