@@ -1,0 +1,164 @@
+/* InterviewOps Design Tokens */
+:root {
+  --ops-bg: #f8fafc;
+  --ops-bg-deep: #eef2ff;
+  --ops-surface: rgba(255, 255, 255, 0.86);
+  --ops-surface-solid: #ffffff;
+  --ops-border: rgba(15, 23, 42, 0.12);
+  --ops-text: #0f172a;
+  --ops-text-strong: #020617;
+  --ops-muted: #475569;
+  --ops-blue: #2563eb;
+  --ops-cyan: #0891b2;
+  --ops-purple: #7c3aed;
+  --ops-green: #047857;
+  --ops-terminal-bg: #0b1120;
+  --ops-terminal-text: #e5e7eb;
+  --ops-terminal-muted: #94a3b8;
+
+  /* Docusaurus overrides */
+  --ifm-color-primary: #2563eb;
+  --ifm-color-primary-dark: #1d4ed8;
+  --ifm-color-primary-darker: #1e40af;
+  --ifm-color-primary-darkest: #1e3a8a;
+  --ifm-color-primary-light: #3b82f6;
+  --ifm-color-primary-lighter: #60a5fa;
+  --ifm-color-primary-lightest: #93c5fd;
+  --ifm-code-font-size: 90%;
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
+  --ifm-font-family-monospace: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  --ifm-navbar-background-color: var(--ops-surface-solid);
+  --ifm-navbar-shadow: 0 1px 0 var(--ops-border);
+  --docusaurus-highlighted-code-line-bg: rgba(37, 99, 235, 0.12);
+}
+
+[data-theme='dark'] {
+  --ops-bg: #070b14;
+  --ops-bg-deep: #0b1120;
+  --ops-surface: rgba(13, 19, 36, 0.72);
+  --ops-surface-solid: #0d1324;
+  --ops-border: rgba(148, 163, 184, 0.18);
+  --ops-text: #e5e7eb;
+  --ops-text-strong: #f8fafc;
+  --ops-muted: #94a3b8;
+  --ops-blue: #60a5fa;
+  --ops-cyan: #22d3ee;
+  --ops-purple: #a78bfa;
+  --ops-green: #34d399;
+  --ops-terminal-bg: #050a12;
+  --ops-terminal-text: #e2e8f0;
+  --ops-terminal-muted: #94a3b8;
+
+  --ifm-color-primary: #60a5fa;
+  --ifm-color-primary-dark: #3b82f6;
+  --ifm-color-primary-darker: #2563eb;
+  --ifm-color-primary-darkest: #1d4ed8;
+  --ifm-color-primary-light: #93c5fd;
+  --ifm-color-primary-lighter: #bfdbfe;
+  --ifm-color-primary-lightest: #dbeafe;
+  --ifm-background-color: var(--ops-bg);
+  --ifm-navbar-background-color: #0a0f1e;
+  --docusaurus-highlighted-code-line-bg: rgba(96, 165, 250, 0.14);
+}
+
+/* Navbar */
+.navbar {
+  border-bottom: 1px solid var(--ops-border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+[data-theme='dark'] .navbar {
+  background: rgba(7, 11, 20, 0.92);
+}
+
+/* Code blocks */
+.prism-code {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+/* Terminal-style code blocks */
+pre[class*='language-bash'],
+pre[class*='language-sh'] {
+  background: var(--ops-terminal-bg) !important;
+  border: 1px solid rgba(96, 165, 250, 0.2);
+}
+
+/* Tables */
+table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+table th {
+  background: var(--ops-bg-deep);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 2px solid var(--ops-border);
+}
+
+[data-theme='dark'] table th {
+  background: rgba(96, 165, 250, 0.08);
+}
+
+table td {
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--ops-border);
+  vertical-align: top;
+}
+
+table tr:hover td {
+  background: rgba(37, 99, 235, 0.04);
+}
+
+[data-theme='dark'] table tr:hover td {
+  background: rgba(96, 165, 250, 0.06);
+}
+
+/* Inline code */
+code {
+  background: var(--ops-bg-deep);
+  border: 1px solid var(--ops-border);
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+  font-size: 0.875em;
+  font-family: var(--ifm-font-family-monospace);
+}
+
+[data-theme='dark'] code {
+  background: rgba(96, 165, 250, 0.1);
+  border-color: rgba(96, 165, 250, 0.2);
+  color: #93c5fd;
+}
+
+/* Admonitions */
+.alert--info {
+  --ifm-alert-background-color: rgba(37, 99, 235, 0.08);
+  --ifm-alert-border-color: #2563eb;
+}
+
+.alert--warning {
+  --ifm-alert-background-color: rgba(245, 158, 11, 0.08);
+  --ifm-alert-border-color: #d97706;
+}
+
+/* Sidebar */
+.menu__link--active {
+  color: var(--ops-blue);
+  font-weight: 600;
+}
+
+/* Footer */
+.footer {
+  border-top: 1px solid var(--ops-border);
+}
+
+[data-theme='dark'] .footer {
+  background: #040710;
+}

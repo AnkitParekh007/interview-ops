@@ -24,7 +24,9 @@
     "demo": "node scripts/demo.mjs",
     "test": "vitest run",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "website:start": "npm --prefix website run start",
+    "website:build": "npm --prefix website run build"
   },
   "keywords": [
     "interview",
