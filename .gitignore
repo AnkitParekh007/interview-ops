@@ -40,6 +40,9 @@ coverage/
 tmp/
 temp/
 
+# InterviewOps Studio local data (runtime, not committed)
+.interviewops-studio/
+
 #AI Models
 CLAUDE.MD
 .claude/*

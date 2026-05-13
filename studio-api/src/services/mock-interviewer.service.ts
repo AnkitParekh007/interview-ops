@@ -1,4 +1,4 @@
-import type { InterviewScorecard, StudyPlan } from '../models/studio.models.js';
+import type { InterviewScorecard, StudyPlan, CandidateProfile } from '../models/studio.models.js';
 
 interface ModePattern {
   openingQuestion: string;
@@ -192,10 +192,62 @@ const defaultPattern: ModePattern = {
   ],
 };
 
-export function generateResponse(mode: string, messageCount: number): string {
+function buildPersonalizedOpening(profile: CandidateProfile, mode: string): string | null {
+  const parts: string[] = [];
+
+  if (profile.resumeText) {
+    const resumeSnippet = profile.resumeText.substring(0, 200);
+    if (mode === 'behavioral') {
+      parts.push(`Your background mentions ${extractKeySkill(resumeSnippet)}. Tell me about a specific time you worked on that — what was the situation, what was your role, and what was the measurable outcome?`);
+    } else if (mode === 'coding') {
+      parts.push(`Based on your experience with ${extractKeySkill(resumeSnippet)}, I would like to start with a problem relevant to your background. Given a stream of events, how would you design a function to efficiently aggregate and query them? Walk me through your approach.`);
+    } else if (mode === 'system-design') {
+      parts.push(`Your background mentions ${extractKeySkill(resumeSnippet)}. Let us design a system related to that experience. How would you architect a scalable version of a system you have worked on? Start with requirements.`);
+    } else {
+      parts.push(`Your background mentions ${extractKeySkill(resumeSnippet)}. Tell me about a specific time you improved load time or rendering performance — what was the bottleneck, how did you diagnose it, and what was the measurable impact?`);
+    }
+  }
+
+  if (profile.jobDescriptionText && parts.length === 0) {
+    parts.push(`I see you are preparing for a role that involves ${extractKeySkill(profile.jobDescriptionText.substring(0, 200))}. Let us focus on that area.`);
+  }
+
+  if (profile.targetCompany && parts.length > 0) {
+    parts.push(`I will tailor my questions to what ${profile.targetCompany} typically looks for.`);
+  }
+
+  return parts.length > 0 ? parts.join(' ') : null;
+}
+
+function extractKeySkill(text: string): string {
+  const keywords = [
+    'frontend performance', 'React', 'Angular', 'Vue', 'Node.js', 'TypeScript',
+    'system design', 'distributed systems', 'microservices', 'machine learning',
+    'cloud infrastructure', 'AWS', 'GCP', 'API design', 'database optimization',
+    'CI/CD', 'DevOps', 'security', 'testing', 'mobile development',
+    'performance optimization', 'scalability', 'data pipelines',
+  ];
+  const lower = text.toLowerCase();
+  for (const kw of keywords) {
+    if (lower.includes(kw.toLowerCase())) {
+      return kw;
+    }
+  }
+  // Fall back to a generic phrase
+  return 'relevant technical experience';
+}
+
+export function generateResponse(mode: string, messageCount: number, profile?: CandidateProfile): string {
   const pattern = modePatterns[mode] ?? defaultPattern;
 
   if (messageCount === 0) {
+    // Try personalized opening if profile is available
+    if (profile) {
+      const personalized = buildPersonalizedOpening(profile, mode);
+      if (personalized) {
+        return personalized;
+      }
+    }
     return pattern.openingQuestion;
   }
 

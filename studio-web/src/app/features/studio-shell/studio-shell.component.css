@@ -30,6 +30,28 @@
   letter-spacing: -0.3px;
 }
 
+.header-nav {
+  display: flex;
+  gap: 4px;
+}
+
+.nav-link {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.nav-link:hover {
+  color: var(--text);
+  background: rgba(124, 58, 237, 0.1);
+}
+
 .header-badge {
   font-size: 11px;
   padding: 3px 10px;

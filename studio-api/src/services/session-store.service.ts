@@ -1,17 +1,21 @@
-import { InterviewSession } from '../models/studio.models.js';
+import { join } from 'node:path';
+import type { InterviewSession } from '../models/studio.models.js';
+import { FileStore } from './file-store.service.js';
 
-const sessions = new Map<string, InterviewSession>();
+const dataDir = join(process.cwd(), '.interviewops-studio', 'sessions');
+const store = new FileStore<InterviewSession>(dataDir);
 
 export const sessionStore = {
-  getAll(): InterviewSession[] {
-    return Array.from(sessions.values()).sort(
+  async getAll(): Promise<InterviewSession[]> {
+    const sessions = await store.getAll();
+    return sessions.sort(
       (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     );
   },
-  get(id: string): InterviewSession | undefined {
-    return sessions.get(id);
+  async get(id: string): Promise<InterviewSession | undefined> {
+    return store.get(id);
   },
-  save(session: InterviewSession): void {
-    sessions.set(session.id, session);
+  async save(session: InterviewSession): Promise<void> {
+    return store.save(session);
   },
 };

@@ -1,8 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
-import type { InterviewSession, InterviewMessage } from '../models/studio.models.js';
+import type { InterviewSession, InterviewMessage, CandidateProfile } from '../models/studio.models.js';
 import { sessionStore } from './session-store.service.js';
 import { getAvatarStateForMessage } from './avatar-state.service.js';
 import { generateResponse, generateScorecard, generateStudyPlan } from './mock-interviewer.service.js';
+import { getProfile } from './profile.service.js';
 
 function createMessage(role: InterviewMessage['role'], content: string): InterviewMessage {
   return {
@@ -14,7 +15,17 @@ function createMessage(role: InterviewMessage['role'], content: string): Intervi
   };
 }
 
-export function createSession(track: string, mode: string, provider: string): InterviewSession {
+export async function createSession(
+  track: string,
+  mode: string,
+  provider: string,
+  candidateProfileId?: string
+): Promise<InterviewSession> {
+  let profile: CandidateProfile | undefined;
+  if (candidateProfileId) {
+    profile = await getProfile();
+  }
+
   const session: InterviewSession = {
     id: uuidv4(),
     track,
@@ -24,6 +35,7 @@ export function createSession(track: string, mode: string, provider: string): In
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     messages: [],
+    candidateProfileId,
   };
 
   // System greeting
@@ -42,16 +54,16 @@ export function createSession(track: string, mode: string, provider: string): In
     )
   );
 
-  // First question
-  const firstQuestion = generateResponse(mode, 0);
+  // First question (personalized if profile available)
+  const firstQuestion = generateResponse(mode, 0, profile);
   session.messages.push(createMessage('interviewer', firstQuestion));
 
-  sessionStore.save(session);
+  await sessionStore.save(session);
   return session;
 }
 
-export function addCandidateMessage(sessionId: string, content: string): InterviewSession {
-  const session = sessionStore.get(sessionId);
+export async function addCandidateMessage(sessionId: string, content: string): Promise<InterviewSession> {
+  const session = await sessionStore.get(sessionId);
   if (!session) {
     throw new Error(`Session not found: ${sessionId}`);
   }
@@ -59,21 +71,27 @@ export function addCandidateMessage(sessionId: string, content: string): Intervi
     throw new Error('Cannot add messages to a finished session.');
   }
 
+  // Load profile if session has one
+  let profile: CandidateProfile | undefined;
+  if (session.candidateProfileId) {
+    profile = await getProfile();
+  }
+
   // Add candidate message
   session.messages.push(createMessage('candidate', content));
 
   // Count candidate messages to determine which response to generate
   const candidateCount = session.messages.filter((m) => m.role === 'candidate').length;
-  const response = generateResponse(session.mode, candidateCount);
+  const response = generateResponse(session.mode, candidateCount, profile);
   session.messages.push(createMessage('interviewer', response));
 
   session.updatedAt = new Date().toISOString();
-  sessionStore.save(session);
+  await sessionStore.save(session);
   return session;
 }
 
-export function finishSession(sessionId: string): InterviewSession {
-  const session = sessionStore.get(sessionId);
+export async function finishSession(sessionId: string): Promise<InterviewSession> {
+  const session = await sessionStore.get(sessionId);
   if (!session) {
     throw new Error(`Session not found: ${sessionId}`);
   }
@@ -91,6 +109,6 @@ export function finishSession(sessionId: string): InterviewSession {
   );
 
   session.updatedAt = new Date().toISOString();
-  sessionStore.save(session);
+  await sessionStore.save(session);
   return session;
 }
