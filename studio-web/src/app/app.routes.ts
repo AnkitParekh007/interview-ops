@@ -36,5 +36,19 @@ export const routes: Routes = [
         (m) => m.OnboardingComponent
       ),
   },
+  {
+    path: 'pricing',
+    loadComponent: () =>
+      import('./features/pricing-page/pricing-page.component').then(
+        (m) => m.PricingPageComponent
+      ),
+  },
+  {
+    path: 'premium-packs',
+    loadComponent: () =>
+      import('./features/premium-packs-page/premium-packs-page.component').then(
+        (m) => m.PremiumPacksPageComponent
+      ),
+  },
   { path: '**', redirectTo: '' },
 ];

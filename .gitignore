@@ -6,6 +6,9 @@ website/.docusaurus/
 
 # Build output
 dist/
+studio-web/dist/
+studio-api/dist/
+studio-web/.angular/
 
 # Environment — NEVER commit this
 .env

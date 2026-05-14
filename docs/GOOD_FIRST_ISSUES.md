@@ -1,103 +1,121 @@
 # Good First Issues
 
-These are well-scoped issues suitable for first-time contributors.
+These are contributor-friendly issues to help you get started with InterviewOps.
 
 ---
 
-## 1. Add Ollama Provider
+## 1. Add Ollama provider (local LLMs, no API key)
 
-**Labels**: `good first issue`, `provider`, `enhancement`
+**Labels:** `good first issue`, `enhancement`, `provider`
 
-**Background**:
-Ollama allows running LLMs locally (Llama, Mistral, Phi, etc.) without an API key. Adding an Ollama provider would let users run InterviewOps completely offline with any supported model.
+Add an Ollama provider to `src/providers/` that calls the local Ollama API at `http://localhost:11434`.
 
-**Files to Touch**:
+**Files to touch:**
 - `src/providers/ollama.provider.ts` (create)
-- `src/providers/provider-registry.ts` (register)
-- `.env.example` (add `OLLAMA_BASE_URL` and `OLLAMA_MODEL`)
-- `docs/PROVIDERS.md` (document)
-- `tests/provider-registry.test.ts` (add test)
-
-**Acceptance Criteria**:
-- `INTERVIEWOPS_PROVIDER=ollama` works when Ollama is running
-- Error message is helpful if Ollama is not running
-- `npm run providers` shows ollama in the list
-- Tests pass
+- `src/providers/index.ts`
+- `src/config/` provider config
 
 ---
 
-## 2. Add OpenRouter Provider
+## 2. Add keyboard shortcut help modal
 
-**Labels**: `good first issue`, `provider`, `enhancement`
+**Labels:** `good first issue`, `enhancement`, `ui`
 
-**Background**:
-OpenRouter provides a single API that routes to 100+ models (GPT-4, Claude, Llama, Mixtral, etc.). Adding an OpenRouter provider would give users access to many models with one integration.
+Add a help modal in InterviewOps Studio (triggered by `?` key) that shows keyboard shortcuts: Enter to send, Shift+Enter for newline, Escape to close modal.
 
-**Files to Touch**:
+**Files to touch:**
+- `studio-web/src/app/shared/keyboard-help/`
+
+---
+
+## 3. Add session search/filter in sidebar
+
+**Labels:** `good first issue`, `enhancement`, `ui`
+
+Add a search input at the top of the session sidebar that filters sessions by track or mode name.
+
+**Files to touch:**
+- `studio-web/src/app/features/session-sidebar/`
+
+---
+
+## 4. Add Mermaid diagram output for system-design sessions
+
+**Labels:** `good first issue`, `enhancement`, `system-design`
+
+When finishing a `system-design` mode session, generate a `diagram.md` file with a Mermaid diagram stub representing the designed system.
+
+**Files to touch:**
+- `studio-api/src/services/mock-interviewer.service.ts`
+- `studio-api/src/routes/export.routes.ts`
+
+---
+
+## 5. Add OpenRouter provider
+
+**Labels:** `good first issue`, `enhancement`, `provider`
+
+Add OpenRouter as a provider (`INTERVIEWOPS_PROVIDER=openrouter`) giving access to 100+ models with one API key.
+
+**Files to touch:**
 - `src/providers/openrouter.provider.ts` (create)
-- `src/providers/provider-registry.ts` (register)
-- `.env.example` (add `OPENROUTER_API_KEY` and `OPENROUTER_MODEL`)
-- `docs/PROVIDERS.md` (document)
-
-**Acceptance Criteria**:
-- `INTERVIEWOPS_PROVIDER=openrouter` works with a valid key
-- Follows the same interface as other providers
-- Error is helpful if key is missing
 
 ---
 
-## 3. Add Local Web UI for Session Preview
+## 6. Add session duration tracking
 
-**Labels**: `good first issue`, `enhancement`, `ui`
+**Labels:** `good first issue`, `enhancement`
 
-**Background**:
-Generated session files are Markdown. A simple local web UI that renders these files in a browser would make it easier to review sessions without opening a terminal.
+Track session duration (start to finish) and show it in the scorecard and sidebar.
 
-**Files to Touch**:
-- `src/cli/commands/view.command.ts` (create)
-- `scripts/serve.mjs` (create — simple static file server)
-- `package.json` (add `"view": "tsx src/cli/index.ts view"` script)
-
-**Acceptance Criteria**:
-- `npm run view` opens a browser showing the most recent session
-- Works with Node's built-in `http` module or a simple static server
-- No external frameworks required
-- Renders Markdown as HTML
+**Files to touch:**
+- `studio-api/src/models/studio.models.ts`
+- `studio-api/src/services/interview-engine.service.ts`
+- `studio-web/src/app/features/scorecard-panel/`
 
 ---
 
-## 4. Add Coding Interview Test-Case Runner
+## 7. Add dark/light theme toggle
 
-**Labels**: `good first issue`, `enhancement`, `coding`
+**Labels:** `good first issue`, `enhancement`, `ui`
 
-**Background**:
-The coding interview mode generates coding problems, but there's no way to run user solutions against test cases. A test-case runner would let users write a solution and verify it.
+Add a theme toggle button in the Studio header that switches between dark and light mode using a CSS class on `<body>`.
 
-**Files to Touch**:
-- `src/cli/commands/solve.command.ts` (create)
-- `src/interview/code-runner.ts` (create)
-- `modes/coding.md` (update to include test-case format)
-
-**Acceptance Criteria**:
-- `npm run solve -- --problem input/problem.ts --tests input/tests.ts` runs the solution against test cases
-- Output shows pass/fail for each test case
-- Works with TypeScript solutions via `tsx`
+**Files to touch:**
+- `studio-web/src/app/features/studio-shell/`
+- `studio-web/src/styles.css`
 
 ---
 
-## 5. Add System Design Diagram Mode
+## 8. Improve mock interviewer variety
 
-**Labels**: `good first issue`, `enhancement`, `system-design`
+**Labels:** `good first issue`, `enhancement`
 
-**Background**:
-System design interviews often involve whiteboard diagrams. A mode that generates Mermaid diagram prompts alongside questions would help candidates practice visual thinking.
+Add more question variety to `mock-interviewer.service.ts`. Currently each mode has a limited set of follow-up questions. Add 5+ more per mode.
 
-**Files to Touch**:
-- `modes/system-design.md` (update to include diagram prompts)
-- `src/providers/mock.provider.ts` (add Mermaid diagram generation for system design)
-- `src/output/output-writer.ts` (add diagram.md to system-design sessions)
+**Files to touch:**
+- `studio-api/src/services/mock-interviewer.service.ts`
 
-**Acceptance Criteria**:
-- System design sessions include a `diagram.md` with Mermaid diagram stubs
-- The diagram represents the architecture being discussed
-- Renders correctly in GitHub Markdown preview
+---
+
+## 9. Add resume file upload (PDF/txt)
+
+**Labels:** `good first issue`, `enhancement`
+
+Add file upload support to the profile panel. Accept `.txt` and `.md` files. Extract text and populate the resume text area.
+
+**Files to touch:**
+- `studio-web/src/app/features/profile-panel/`
+
+---
+
+## 10. Add session notes field
+
+**Labels:** `good first issue`, `enhancement`
+
+Allow candidates to add personal notes to a session (not shown to the mock interviewer). Notes stored in the session JSON file.
+
+**Files to touch:**
+- `studio-api/src/models/studio.models.ts`
+- `studio-api/src/routes/sessions.routes.ts`
+- `studio-web/src/app/features/chat-window/`

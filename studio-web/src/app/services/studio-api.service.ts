@@ -10,6 +10,8 @@ import {
   ReadinessReport,
   StarStory,
   DashboardSummary,
+  FeaturePlan,
+  PremiumPack,
 } from '../core/models/studio.models';
 
 @Injectable({ providedIn: 'root' })
@@ -131,5 +133,14 @@ export class StudioApiService {
     return this.http.get(`${this.base}/sessions/${sessionId}/export/html`, {
       responseType: 'text',
     });
+  }
+
+  // Plans & Pricing
+  getPlans(): Observable<FeaturePlan[]> {
+    return this.http.get<FeaturePlan[]>(`${this.base}/plans`);
+  }
+
+  getPremiumPacks(): Observable<PremiumPack[]> {
+    return this.http.get<PremiumPack[]>(`${this.base}/premium-packs`);
   }
 }

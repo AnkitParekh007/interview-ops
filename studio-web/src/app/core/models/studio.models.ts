@@ -137,3 +137,39 @@ export interface DashboardSummary {
   recentSessions: InterviewSession[];
   recommendedNextMode: string;
 }
+
+// Pricing & Plans
+
+export type PlanId = 'free' | 'pro' | 'job-hunt' | 'lifetime' | 'team';
+
+export interface FeatureLimits {
+  sessionsPerDay: number;
+  starStories: number;
+  readinessReports: boolean;
+  pdfExport: boolean;
+  resumeJdQuestions: boolean;
+  premiumPacks: boolean;
+  teamDashboard: boolean;
+}
+
+export interface FeaturePlan {
+  id: PlanId;
+  name: string;
+  description: string;
+  priceMonthly?: number;
+  priceYearly?: number;
+  priceOneTime?: number;
+  features: string[];
+  limits: FeatureLimits;
+  recommended?: boolean;
+}
+
+export interface PremiumPack {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  questionsCount: number;
+  includedTracks: string[];
+  status: 'coming-soon' | 'available';
+}
