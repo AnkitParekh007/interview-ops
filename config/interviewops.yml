@@ -1,0 +1,47 @@
+project:
+  name: "My Interview Prep"
+  default_track: "senior-frontend"
+  default_mode: "behavioral"
+  output_dir: "output/sessions"
+  input_dir: "input"
+
+model:
+  provider: "mock"
+  temperature: 0.4
+  max_tokens: 6000
+
+interview:
+  duration_minutes: 45
+  difficulty: "senior"
+  style: "realistic"
+  include_followups: true
+  include_scorecard: true
+  include_improved_answers: true
+  include_study_plan: true
+
+feedback:
+  tone: "honest, practical, supportive"
+  rubric_scale: 5
+  include_hire_signal: true
+  include_senior_expectations: true
+
+ethics:
+  practice_only: true
+  block_live_cheating_features: true
+  include_ethics_notice: true
+  no_hidden_overlay: true
+  no_real_time_answer_injection: true
+
+tracks:
+  enabled:
+    - senior-frontend
+    - angular-developer
+    - ai-frontend-engineer
+    - ai-agentic-engineer
+
+modes:
+  enabled:
+    - behavioral
+    - frontend-architecture
+    - project-deep-dive
+    - ai-assisted-engineering

@@ -1,176 +1,342 @@
-.avatar-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* ═══════════════════════════════════════════════════════════
+   WRAPPER & SVG
+   ═══════════════════════════════════════════════════════════ */
+.avatar-wrap {
   width: 100%;
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .avatar-svg {
-  width: 160px;
+  width: 100%;
+  max-width: 210px;
   height: auto;
+  overflow: visible;
+  transition: filter 0.4s ease;
 }
 
-/* Glow defaults */
-.glow-inner {
-  stop-color: transparent;
+/* ─── Glow ring defaults ─────────────────────────────────── */
+.glow-inner { stop-color: transparent; }
+.glow-outer { stop-color: transparent; }
+.glow-ring  { opacity: 0; transition: opacity 0.5s ease; }
+
+/* ─── Hidden-by-default effects ──────────────────────────── */
+.speak-waves   { opacity: 0; }
+.think-bubbles { opacity: 0; }
+.sparkles      { opacity: 0; }
+.notepad       { opacity: 0; transition: opacity 0.4s ease; }
+
+/* ═══════════════════════════════════════════════════════════
+   UNIVERSAL — PERIODIC EYE BLINK
+   ═══════════════════════════════════════════════════════════ */
+.lid {
+  /* transform-origin pinned inline per lid (top edge of eye) */
+  animation: blink 5s ease-in-out infinite;
 }
-.glow-outer {
-  stop-color: transparent;
-}
-.glow-ring {
-  opacity: 0;
-  transition: opacity 0.6s ease;
+.lid-top-r { animation-delay: 0.05s; }
+
+@keyframes blink {
+  0%, 84%, 100% { transform: scaleY(0); }
+  88%, 92%      { transform: scaleY(1); }
 }
 
-/* Thinking dots hidden by default */
-.thinking-dots {
-  opacity: 0;
+/* ═══════════════════════════════════════════════════════════
+   IDLE — gentle breathing
+   ═══════════════════════════════════════════════════════════ */
+.state--idle .head-group,
+.state--idle .neck {
+  animation: breathe 4.8s ease-in-out infinite;
+  transform-origin: 100px 192px;
 }
-
-/* Sparkles hidden by default */
-.sparkles {
-  opacity: 0;
-}
-
-/* ---- IDLE: subtle breathing ---- */
-.avatar--idle .head,
-.avatar--idle .body,
-.avatar--idle .neck {
-  animation: breathe 4s ease-in-out infinite;
+.state--idle .body {
+  animation: body-breathe 4.8s ease-in-out infinite;
+  transform-origin: 100px 240px;
 }
 
 @keyframes breathe {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-1.5px); }
+  50%      { transform: translateY(-2px); }
+}
+@keyframes body-breathe {
+  0%, 100% { transform: scaleY(1); }
+  50%      { transform: scaleY(1.007); }
 }
 
-/* ---- GREETING: slight wave-like nod ---- */
-.avatar--greeting .head {
-  animation: nod 1s ease-in-out 2;
+/* ═══════════════════════════════════════════════════════════
+   GREETING — nod
+   ═══════════════════════════════════════════════════════════ */
+.state--greeting .head-group,
+.state--greeting .neck,
+.state--greeting .hair {
+  animation: nod 0.85s ease-in-out 2 forwards;
+  transform-origin: 100px 174px;
 }
+.state--greeting .lower-lip { transform: translateY(3px); }
+.state--greeting .upper-lip { transform: translateY(-1px); }
 
 @keyframes nod {
+  0%   { transform: rotate(0deg); }
+  28%  { transform: rotate(3.5deg); }
+  60%  { transform: rotate(-1.5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LISTENING — lean forward, raised brows, cyan glow
+   ═══════════════════════════════════════════════════════════ */
+.state--listening .glow-ring {
+  opacity: 1;
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+.state--listening .glow-inner { stop-color: rgba(6,182,212,0.20); }
+.state--listening .glow-outer { stop-color: transparent; }
+
+.state--listening .head-group,
+.state--listening .neck,
+.state--listening .hair {
+  animation: lean-forward 0.5s ease-out forwards;
+  transform-origin: 100px 192px;
+}
+.state--listening .brow-l {
+  animation: brow-raise 0.4s ease-out forwards;
+  transform-origin: 78px 80px;
+}
+.state--listening .brow-r {
+  animation: brow-raise 0.4s ease-out forwards;
+  transform-origin: 122px 80px;
+}
+.state--listening .iris-l { transform: translateY(-1px); }
+.state--listening .iris-r { transform: translateY(-1px); }
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 0.9; }
+}
+@keyframes lean-forward {
+  to { transform: rotate(3deg) translateY(2px); }
+}
+@keyframes brow-raise {
+  to { transform: translateY(-3px); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   THINKING — eyes drift up-right, furrowed brows, head tilt
+   ═══════════════════════════════════════════════════════════ */
+.state--thinking .think-bubbles {
+  opacity: 1;
+  animation: bubbles-in 0.4s ease forwards;
+}
+.state--thinking .bubble {
+  animation: bubble-float 2s ease-in-out infinite;
+}
+.state--thinking .b2 { animation-delay: 0.3s; }
+.state--thinking .b3 { animation-delay: 0.6s; }
+
+.state--thinking .iris-l { transform: translate(2px, -2.5px); }
+.state--thinking .iris-r { transform: translate(2px, -2.5px); }
+
+.state--thinking .brow-l {
+  transform: rotate(-4deg) translateY(1.5px);
+  transform-origin: 78px 80px;
+}
+.state--thinking .brow-r {
+  transform: rotate(4deg) translateY(1.5px);
+  transform-origin: 122px 80px;
+}
+.state--thinking .head-group,
+.state--thinking .neck,
+.state--thinking .hair {
+  animation: tilt-right 0.5s ease-out forwards;
+  transform-origin: 100px 192px;
+}
+.state--thinking .notepad { opacity: 1; }
+
+@keyframes bubbles-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes bubble-float {
+  0%, 100% { transform: translateY(0); opacity: 0.7; }
+  50%      { transform: translateY(-4px); opacity: 1; }
+}
+@keyframes tilt-right {
+  to { transform: rotate(-5deg); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SPEAKING — mouth animates, waves appear, subtle bob
+   ═══════════════════════════════════════════════════════════ */
+.state--speaking .mouth-open  { animation: mouth-open   0.45s ease-in-out infinite; }
+.state--speaking .upper-lip   { animation: lip-upper    0.45s ease-in-out infinite; }
+.state--speaking .lower-lip   { animation: lip-lower    0.45s ease-in-out infinite; }
+.state--speaking .lip-line    { animation: lip-line-anim 0.45s ease-in-out infinite; }
+
+.state--speaking .speak-waves { opacity: 1; }
+.state--speaking .wave {
+  animation: wave-pulse 1.4s ease-out infinite;
+  transform-origin: 100px 110px;
+}
+.state--speaking .w2-l,
+.state--speaking .w2-r { animation-delay: 0.35s; }
+
+.state--speaking .head-group,
+.state--speaking .neck,
+.state--speaking .hair {
+  animation: speak-bob 0.9s ease-in-out infinite;
+  transform-origin: 100px 192px;
+}
+
+@keyframes mouth-open {
+  0%, 100% { ry: 0; }
+  50%      { ry: 7; }
+}
+@keyframes lip-upper {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(3px); }
+  50%      { transform: translateY(-3px); }
+}
+@keyframes lip-lower {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(4px); }
+}
+@keyframes lip-line-anim {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(1px); }
+}
+@keyframes wave-pulse {
+  0%   { opacity: 0.8; transform: scaleX(1); }
+  100% { opacity: 0;   transform: scaleX(1.3); }
+}
+@keyframes speak-bob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  30%      { transform: translateY(-1.5px) rotate(0.8deg); }
+  70%      { transform: translateY(-0.8px) rotate(-0.4deg); }
 }
 
-/* ---- LISTENING: glow pulse around head ---- */
-.avatar--listening .glow-ring {
+/* ═══════════════════════════════════════════════════════════
+   ENCOURAGING — smile, green glow, lean forward
+   ═══════════════════════════════════════════════════════════ */
+.state--encouraging .glow-ring { opacity: 1; }
+.state--encouraging .glow-inner { stop-color: rgba(34,197,94,0.16); }
+.state--encouraging .glow-outer { stop-color: transparent; }
+
+.state--encouraging .lower-lip { transform: translateY(3.5px); }
+.state--encouraging .upper-lip { transform: translateY(-1px); }
+
+.state--encouraging .head-group,
+.state--encouraging .neck,
+.state--encouraging .hair {
+  animation: lean-forward 0.5s ease-out forwards;
+  transform-origin: 100px 192px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CHALLENGING — furrowed brows, squint, forward lean
+   ═══════════════════════════════════════════════════════════ */
+.state--challenging .brow-l {
+  transform: rotate(-7deg) translateY(3px);
+  transform-origin: 78px 80px;
+  transition: transform 0.3s ease;
+}
+.state--challenging .brow-r {
+  transform: rotate(7deg) translateY(3px);
+  transform-origin: 122px 80px;
+  transition: transform 0.3s ease;
+}
+.state--challenging .iris-l { transform: translateY(1.5px); }
+.state--challenging .iris-r { transform: translateY(1.5px); }
+
+.state--challenging .head-group,
+.state--challenging .neck,
+.state--challenging .hair {
+  animation: subtle-forward 0.5s ease-out forwards;
+  transform-origin: 100px 192px;
+}
+
+@keyframes subtle-forward {
+  to { transform: rotate(4deg) translateY(3px); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SCORING — look down at notepad, writing, purple glow
+   ═══════════════════════════════════════════════════════════ */
+.state--scoring .glow-ring {
   opacity: 1;
+  animation: glow-pulse 1.6s ease-in-out infinite;
 }
-.avatar--listening .glow-inner {
-  stop-color: rgba(6, 182, 212, 0.15);
+.state--scoring .glow-inner { stop-color: rgba(124,58,237,0.18); }
+.state--scoring .glow-outer { stop-color: transparent; }
+
+.state--scoring .head-group,
+.state--scoring .neck,
+.state--scoring .hair {
+  animation: look-down 0.5s ease-out forwards;
+  transform-origin: 100px 166px;
 }
-.avatar--listening .glow-outer {
-  stop-color: transparent;
+.state--scoring .notepad { opacity: 1; }
+.state--scoring .pen {
+  animation: write 1.2s ease-in-out infinite;
+  transform-origin: 50px 204px;
 }
-.avatar--listening .glow-ring {
-  animation: pulse-glow 2s ease-in-out infinite;
+.state--scoring .iris-l { transform: translate(-1px, 3px); }
+.state--scoring .iris-r { transform: translate(-1px, 3px); }
+
+@keyframes look-down {
+  to { transform: rotate(8deg); }
+}
+@keyframes write {
+  0%, 100% { transform: translate(0,0) rotate(30deg); }
+  25%      { transform: translate(-5px, 2px) rotate(28deg); }
+  75%      { transform: translate(3px, -1px) rotate(32deg); }
 }
 
-@keyframes pulse-glow {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
+.state--scoring .write-line { stroke-dasharray: 40; }
+.state--scoring .l1 { stroke-dashoffset: 40; animation: draw-line 1.2s ease-in-out infinite; }
+.state--scoring .l2 { stroke-dashoffset: 40; animation: draw-line 1.2s 0.4s ease-in-out infinite; }
+.state--scoring .l3 { stroke-dashoffset: 40; animation: draw-line 1.2s 0.8s ease-in-out infinite; }
+
+@keyframes draw-line {
+  0%   { stroke-dashoffset: 40; }
+  60%  { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 0; }
 }
 
-/* ---- THINKING: animated dots above head ---- */
-.avatar--thinking .thinking-dots {
+/* ═══════════════════════════════════════════════════════════
+   CELEBRATING — sparkles, bounce, big smile, warm glow
+   ═══════════════════════════════════════════════════════════ */
+.state--celebrating .sparkles { opacity: 1; }
+.state--celebrating .sp { animation: sparkle-float 2s ease-in-out infinite; }
+.state--celebrating .sp2 { animation-delay: 0.3s; }
+.state--celebrating .sp3 { animation-delay: 0.6s; }
+.state--celebrating .sp4 { animation-delay: 0.9s; }
+
+.state--celebrating .head-group,
+.state--celebrating .neck,
+.state--celebrating .hair {
+  animation: celebrate-bounce 0.7s ease-in-out 3 forwards;
+  transform-origin: 100px 192px;
+}
+.state--celebrating .lower-lip { transform: translateY(4px); }
+.state--celebrating .upper-lip { transform: translateY(-2px); }
+
+.state--celebrating .glow-ring {
   opacity: 1;
+  animation: glow-pulse 0.9s ease-in-out infinite;
 }
-.avatar--thinking .thinking-dots circle {
-  animation: dot-bounce 1.2s ease-in-out infinite;
-}
-.avatar--thinking .thinking-dots circle:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.avatar--thinking .thinking-dots circle:nth-child(3) {
-  animation-delay: 0.4s;
-}
+.state--celebrating .glow-inner { stop-color: rgba(245,158,11,0.22); }
+.state--celebrating .glow-outer { stop-color: transparent; }
 
-@keyframes dot-bounce {
-  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
-  40% { transform: translateY(-6px); opacity: 1; }
+.state--celebrating .avatar-svg {
+  filter: drop-shadow(0 0 16px rgba(245,158,11,0.30));
 }
-
-/* ---- SPEAKING: mouth movement ---- */
-.avatar--speaking .mouth {
-  animation: speak 0.6s ease-in-out infinite;
-}
-
-@keyframes speak {
-  0%, 100% { d: path("M 88 132 Q 100 138, 112 132"); }
-  50% { d: path("M 88 132 Q 100 142, 112 132"); }
-}
-
-/* ---- ENCOURAGING: smile + green glow ---- */
-.avatar--encouraging .mouth {
-  d: path("M 85 130 Q 100 145, 115 130");
-}
-.avatar--encouraging .glow-ring {
-  opacity: 1;
-}
-.avatar--encouraging .glow-inner {
-  stop-color: rgba(34, 197, 94, 0.12);
-}
-.avatar--encouraging .glow-outer {
-  stop-color: transparent;
-}
-
-/* ---- CHALLENGING: slight frown, serious ---- */
-.avatar--challenging .mouth {
-  d: path("M 90 135 Q 100 130, 110 135");
-}
-.avatar--challenging .brow-left {
-  transform: rotate(-3deg);
-  transform-origin: 79px 92px;
-}
-.avatar--challenging .brow-right {
-  transform: rotate(3deg);
-  transform-origin: 121px 92px;
-}
-
-/* ---- SCORING: pulse effect ---- */
-.avatar--scoring .head {
-  animation: score-pulse 1.5s ease-in-out infinite;
-}
-.avatar--scoring .glow-ring {
-  opacity: 1;
-}
-.avatar--scoring .glow-inner {
-  stop-color: rgba(124, 58, 237, 0.15);
-}
-
-@keyframes score-pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.02); }
-}
-
-/* ---- CELEBRATING: sparkles + bounce ---- */
-.avatar--celebrating .sparkles {
-  opacity: 1;
-}
-.avatar--celebrating .head,
-.avatar--celebrating .body,
-.avatar--celebrating .neck {
-  animation: celebrate-bounce 0.8s ease-in-out 3;
-}
-.avatar--celebrating .mouth {
-  d: path("M 82 130 Q 100 148, 118 130");
-}
-.avatar--celebrating .sparkle {
-  animation: sparkle-float 2s ease-in-out infinite;
-}
-.avatar--celebrating .s2 { animation-delay: 0.3s; }
-.avatar--celebrating .s3 { animation-delay: 0.6s; }
-.avatar--celebrating .s4 { animation-delay: 0.9s; }
 
 @keyframes celebrate-bounce {
   0%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-5px); }
+  35%      { transform: translateY(-8px); }
+  65%      { transform: translateY(-3px); }
 }
-
 @keyframes sparkle-float {
-  0%, 100% { opacity: 0.4; transform: translateY(0) scale(1); }
-  50% { opacity: 1; transform: translateY(-4px) scale(1.2); }
+  0%, 100% { opacity: 0.3; transform: translateY(0) scale(0.85); }
+  50%      { opacity: 1;   transform: translateY(-6px) scale(1.3); }
 }

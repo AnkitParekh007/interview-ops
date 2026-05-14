@@ -46,6 +46,7 @@ export class StudioApiService {
     track: string;
     mode: string;
     provider: string;
+    model?: string;
     candidateProfileId?: string;
   }): Observable<InterviewSession> {
     return this.http.post<InterviewSession>(`${this.base}/sessions`, payload);

@@ -1,89 +1,112 @@
-.message {
-  padding: 4px 0;
-}
-
-.message--system {
+/* ── System pill ─────────────────────────────────────────── */
+.system-pill {
   display: flex;
   justify-content: center;
-  padding: 8px 0;
+  padding: 6px 0 10px;
 }
 
 .system-pill {
-  padding: 6px 16px;
-  background: rgba(255, 255, 255, 0.04);
-  border-radius: 20px;
-  font-size: 12px;
+  font-size: 11.5px;
   color: var(--muted);
   text-align: center;
+  padding: 4px 16px;
+  background: color-mix(in srgb, var(--text) 5%, transparent);
+  border-radius: 20px;
   max-width: 80%;
+  margin: 0 auto;
+  line-height: 1.5;
 }
 
-.bubble {
+/* ── Shared row ──────────────────────────────────────────── */
+.row {
   display: flex;
-  gap: 10px;
-  max-width: 80%;
+  padding: 6px 0;
 }
 
-.interviewer-bubble {
-  align-self: flex-start;
+/* ── AI / Interviewer row ────────────────────────────────── */
+.row--ai {
+  align-items: flex-start;
+  gap: 12px;
 }
 
-.candidate-bubble {
-  align-self: flex-end;
-  margin-left: auto;
-}
-
-.bubble-avatar {
-  font-size: 20px;
+.ai-avatar {
   flex-shrink: 0;
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 15%, var(--panel));
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(124, 58, 237, 0.12);
-  border-radius: 50%;
+  font-size: 14px;
+  margin-top: 2px;
 }
 
-.bubble-content {
-  padding: 10px 14px;
-  border-radius: var(--radius-sm);
-  font-size: 13px;
-  line-height: 1.6;
+.ai-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
 }
 
-.interviewer-bubble .bubble-content {
-  background: var(--panel);
-  border: 1px solid rgba(124, 58, 237, 0.2);
-}
-
-.candidate-bubble .bubble-content {
-  background: var(--panel-soft);
-  border: 1px solid var(--border);
-}
-
-.bubble-role {
+.role-label {
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: var(--muted);
-  margin-bottom: 4px;
 }
 
-.coach-box {
+.ai-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ── User / Candidate row ────────────────────────────────── */
+.row--user {
+  justify-content: flex-end;
+}
+
+.user-bubble {
+  max-width: 75%;
+  padding: 10px 16px;
+  background: color-mix(in srgb, var(--accent) 15%, var(--panel-soft));
+  border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent);
+  border-radius: 18px 18px 4px 18px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ── Coach row ───────────────────────────────────────────── */
+.coach-row {
   display: flex;
+  align-items: flex-start;
   gap: 10px;
-  padding: 12px 14px;
-  background: rgba(245, 158, 11, 0.06);
-  border: 1px solid rgba(245, 158, 11, 0.2);
-  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  background: color-mix(in srgb, var(--warning) 7%, transparent);
+  border: 1px solid color-mix(in srgb, var(--warning) 22%, transparent);
+  border-radius: 10px;
   margin: 4px 0;
 }
 
 .coach-icon {
-  font-size: 18px;
+  font-size: 16px;
   flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.coach-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
 .coach-label {
@@ -92,11 +115,10 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: var(--warning);
-  margin-bottom: 4px;
 }
 
 .coach-text {
   font-size: 13px;
   color: var(--text);
-  line-height: 1.5;
+  line-height: 1.55;
 }

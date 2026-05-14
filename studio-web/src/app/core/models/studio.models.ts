@@ -18,6 +18,7 @@ export interface InterviewSession {
   track: string;
   mode: string;
   provider: string;
+  model?: string;
   status: SessionStatus;
   createdAt: string;
   updatedAt: string;
@@ -68,11 +69,23 @@ export interface Mode {
   description: string;
 }
 
+export interface ProviderModel {
+  id: string;
+  name: string;
+  recommended?: boolean;
+}
+
 export interface Provider {
   id: string;
   name: string;
+  icon: string;
+  badge?: string;
   description: string;
   requiresKey: boolean;
+  keyEnvVar?: string;
+  docsUrl?: string;
+  models: ProviderModel[];
+  setupSteps: string[];
 }
 
 export interface CandidateProfile {

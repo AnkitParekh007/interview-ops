@@ -13,11 +13,31 @@ export type SessionStatus = 'draft' | 'active' | 'finished';
 
 export type MessageRole = 'system' | 'interviewer' | 'candidate' | 'coach';
 
+export interface ProviderModel {
+  id: string;
+  name: string;
+  recommended?: boolean;
+}
+
+export interface Provider {
+  id: string;
+  name: string;
+  icon: string;
+  badge?: string;
+  description: string;
+  requiresKey: boolean;
+  keyEnvVar?: string;
+  docsUrl?: string;
+  models: ProviderModel[];
+  setupSteps: string[];
+}
+
 export interface InterviewSession {
   id: string;
   track: string;
   mode: string;
   provider: string;
+  model?: string;
   status: SessionStatus;
   createdAt: string;
   updatedAt: string;

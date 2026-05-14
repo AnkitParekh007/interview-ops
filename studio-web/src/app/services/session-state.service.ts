@@ -15,6 +15,7 @@ export class SessionStateService {
   readonly selectedTrack = signal<string>('');
   readonly selectedMode = signal<string>('');
   readonly selectedProvider = signal<string>('mock');
+  readonly selectedModel = signal<string>('');
 
   readonly hasActiveSession = computed(() => this.activeSession() !== null);
 
@@ -30,13 +31,13 @@ export class SessionStateService {
     });
   }
 
-  createSession(track: string, mode: string, provider: string): void {
+  createSession(track: string, mode: string, provider: string, model?: string): void {
     this.isLoading.set(true);
     this.error.set(null);
     this.readinessReport.set(null);
     this.avatarState.setState('greeting');
 
-    this.api.createSession({ track, mode, provider }).subscribe({
+    this.api.createSession({ track, mode, provider, model }).subscribe({
       next: (session) => {
         this.activeSession.set(session);
         this.view.set('chat');
@@ -146,5 +147,6 @@ export class SessionStateService {
     this.selectedTrack.set('');
     this.selectedMode.set('');
     this.selectedProvider.set('mock');
+    this.selectedModel.set('');
   }
 }

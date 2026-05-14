@@ -16,17 +16,18 @@ router.get('/sessions', async (_req, res) => {
 
 router.post('/sessions', async (req, res) => {
   try {
-    const { track, mode, provider, candidateProfileId } = req.body as {
+    const { track, mode, provider, model, candidateProfileId } = req.body as {
       track: string;
       mode: string;
       provider: string;
+      model?: string;
       candidateProfileId?: string;
     };
     if (!track || !mode || !provider) {
       res.status(400).json({ error: 'track, mode, and provider are required.' });
       return;
     }
-    const session = await createSession(track, mode, provider, candidateProfileId);
+    const session = await createSession(track, mode, provider, candidateProfileId, model);
     res.status(201).json(session);
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Unknown error';

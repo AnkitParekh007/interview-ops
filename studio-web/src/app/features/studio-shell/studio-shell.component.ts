@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SessionStateService } from '../../services/session-state.service';
 import { AvatarStateService } from '../../services/avatar-state.service';
+import { ThemeService } from '../../services/theme.service';
 import { SessionSidebarComponent } from '../session-sidebar/session-sidebar.component';
 import { SetupPanelComponent } from '../setup-panel/setup-panel.component';
 import { ChatWindowComponent } from '../chat-window/chat-window.component';
@@ -35,7 +36,12 @@ import { ReadinessReportPanelComponent } from '../readiness-report-panel/readine
           <button class="nav-link" (click)="navigateTo('/profile')">Profile</button>
           <button class="nav-link" (click)="navigateTo('/pricing')">Pricing</button>
         </nav>
-        <div class="header-badge">Practice-only mode</div>
+        <div class="header-right">
+          <button class="theme-toggle" (click)="theme.toggle()" [title]="theme.theme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'">
+            @if (theme.theme() === 'dark') { ☀️ } @else { 🌙 }
+          </button>
+          <div class="header-badge">Practice-only mode</div>
+        </div>
       </header>
       <div class="shell-body">
         <app-session-sidebar />
@@ -66,6 +72,7 @@ export class StudioShellComponent implements OnInit {
   constructor(
     public sessionState: SessionStateService,
     public avatarState: AvatarStateService,
+    public theme: ThemeService,
     private router: Router
   ) {}
 

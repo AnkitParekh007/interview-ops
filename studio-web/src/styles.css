@@ -1,4 +1,5 @@
-:root {
+:root,
+[data-theme='dark'] {
   --bg: #09090b;
   --panel: #111113;
   --panel-soft: #18181b;
@@ -14,6 +15,26 @@
   --radius-sm: 8px;
   --font: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+  color-scheme: dark;
+}
+
+[data-theme='light'] {
+  --bg: #f8f8fc;
+  --panel: #ffffff;
+  --panel-soft: #f1f0f7;
+  --border: rgba(0, 0, 0, 0.09);
+  --text: #18181b;
+  --muted: #71717a;
+  --accent: #7c3aed;
+  --accent-2: #0891b2;
+  --success: #16a34a;
+  --warning: #d97706;
+  --danger: #dc2626;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --font: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  color-scheme: light;
 }
 
 *,

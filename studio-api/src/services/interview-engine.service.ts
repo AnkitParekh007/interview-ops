@@ -19,7 +19,8 @@ export async function createSession(
   track: string,
   mode: string,
   provider: string,
-  candidateProfileId?: string
+  candidateProfileId?: string,
+  model?: string
 ): Promise<InterviewSession> {
   let profile: CandidateProfile | undefined;
   if (candidateProfileId) {
@@ -31,6 +32,7 @@ export async function createSession(
     track,
     mode,
     provider,
+    ...(model ? { model } : {}),
     status: 'active',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
