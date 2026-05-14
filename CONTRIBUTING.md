@@ -4,6 +4,23 @@ Thank you for your interest in contributing! InterviewOps is built for developer
 
 ---
 
+## Project Architecture
+
+InterviewOps is a local-first, TypeScript monorepo with three main layers: a Node.js CLI (`src/`) that drives interview simulations and output generation, an Express API (`studio-api/`) that powers the browser-based Studio, and an Angular 19 web app (`studio-web/`) that provides the visual interview interface. All three share the same track, mode, and rubric Markdown files at the repo root. See [docs/architecture.md](./docs/architecture.md) for the full architectural overview.
+
+---
+
+## Development Environment Requirements
+
+Before cloning, make sure you have:
+
+- **Node.js 20+** — `node --version` should print `v20.x.x` or higher
+- **npm 10+** — `npm --version` should print `10.x.x` or higher
+- **TypeScript 5.4+** — installed automatically via `npm install`; no global install needed
+- **Angular CLI** _(optional, for `studio-web` development)_ — `npm install -g @angular/cli@19`
+
+---
+
 ## Getting Started
 
 ```bash
@@ -39,7 +56,53 @@ npm run doctor    # Validate setup
 5. Document it in `docs/PROVIDERS.md`
 6. Add a test in `tests/provider-registry.test.ts`
 
-See `src/providers/mock.provider.ts` as a reference implementation.
+### InterviewProvider interface
+
+```typescript
+// src/providers/provider.types.ts
+
+export interface ProviderMessage {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+export interface ProviderResponse {
+  content: string;
+  model: string;
+  provider: string;
+}
+
+export interface InterviewProvider {
+  name: string;
+  generateCompletion(prompt: string, systemPrompt?: string): Promise<ProviderResponse>;
+  isAvailable(): boolean;
+}
+```
+
+### Minimal provider skeleton
+
+```typescript
+// src/providers/myprovider.provider.ts
+import type { InterviewProvider, ProviderResponse } from './provider.types.js';
+
+export class MyProvider implements InterviewProvider {
+  readonly name = 'myprovider';
+
+  isAvailable(): boolean {
+    // Return true only when the provider can be used (e.g., API key present).
+    // Never throw here — the registry uses this to select a provider at startup.
+    return Boolean(process.env.MY_API_KEY);
+  }
+
+  async generateCompletion(prompt: string, systemPrompt?: string): Promise<ProviderResponse> {
+    // Call your API here and return a ProviderResponse.
+    const content = await callMyApi(prompt, systemPrompt);
+    return { content, model: 'my-model-id', provider: this.name };
+  }
+}
+```
+
+See `src/providers/mock.provider.ts` as a complete reference implementation with no external dependencies.
 
 ---
 
@@ -81,6 +144,37 @@ See `src/providers/mock.provider.ts` as a reference implementation.
 
 ---
 
+## Testing Strategy
+
+Each test file has a focused scope. Here is what each covers and how to run it in isolation:
+
+| Test file | What it covers | Run individually |
+|---|---|---|
+| `tests/config.test.ts` | Environment variable loading, `.env` parsing, config defaults | `npx vitest run tests/config.test.ts` |
+| `tests/ethics.test.ts` | Ethics guardrails — ensures no live-assistance code paths exist and `ethics-notice.md` is emitted | `npx vitest run tests/ethics.test.ts` |
+| `tests/mode-loader.test.ts` | Loading and parsing of mode Markdown files from `modes/` | `npx vitest run tests/mode-loader.test.ts` |
+| `tests/output-writer.test.ts` | Session output file generation — `session.md`, `scorecard.md`, `metadata.json` | `npx vitest run tests/output-writer.test.ts` |
+| `tests/provider-registry.test.ts` | Provider selection, `isAvailable()` logic, mock provider behaviour | `npx vitest run tests/provider-registry.test.ts` |
+| `tests/rubric-loader.test.ts` | Loading rubric definitions and scoring dimension parsing | `npx vitest run tests/rubric-loader.test.ts` |
+| `tests/track-loader.test.ts` | Loading track Markdown files, metadata extraction | `npx vitest run tests/track-loader.test.ts` |
+
+Run the full suite with `npm test`. Run a single file with `npx vitest run tests/<file>`.
+
+---
+
+## How to Add a Good First Issue
+
+Contributing the issue templates themselves is also welcome. To propose a new "good first issue":
+
+1. Browse [docs/GOOD_FIRST_ISSUES.md](./docs/GOOD_FIRST_ISSUES.md) to see ideas already listed
+2. Create a `.yml` file in `.github/ISSUE_TEMPLATE/` using the `gfi-<slug>.yml` naming convention
+3. Follow the same structure as the existing `gfi-*.yml` files: `name`, `description`, `labels`, and a `body` with a single `markdown` block
+4. The markdown body should include: difficulty, area, skills, what needs to be done, acceptance criteria (checkboxes), files to look at, and a getting started paragraph
+5. Always end with the ethics reminder pointing to `ETHICS.md`
+6. Open a PR with your new template — no code changes needed
+
+---
+
 ## Opening a Pull Request
 
 1. Fork the repo and create a branch: `git checkout -b feat/your-feature`
@@ -89,6 +183,34 @@ See `src/providers/mock.provider.ts` as a reference implementation.
 4. Run `npm run demo` — must complete successfully
 5. Open a PR against `main`
 6. Fill in the PR template
+
+---
+
+## Commit Message Format
+
+This project uses [Conventional Commits](https://www.conventionalcommits.org/). Use the following prefixes:
+
+| Prefix | When to use |
+|---|---|
+| `feat:` | A new feature or capability |
+| `fix:` | A bug fix |
+| `docs:` | Documentation-only changes |
+| `test:` | Adding or updating tests |
+| `chore:` | Maintenance, dependency updates, config changes |
+| `refactor:` | Code restructuring with no behaviour change |
+| `style:` | Formatting, whitespace — no logic change |
+
+Examples:
+
+```
+feat: add Ollama provider with OLLAMA_MODEL env var support
+fix: provider registry falls back to mock when env var is missing
+docs: add OpenRouter setup instructions to PROVIDERS.md
+test: add duration formatting helper to output-writer tests
+chore: bump vitest to 1.6.0
+```
+
+Keep the subject line under 72 characters. Add a body paragraph when the "why" needs explanation.
 
 ---
 

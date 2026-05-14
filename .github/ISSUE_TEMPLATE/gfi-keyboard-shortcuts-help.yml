@@ -1,0 +1,45 @@
+name: "Good First Issue: Add 'shortcuts' CLI Command"
+description: "Add an 'interviewops shortcuts' command that prints a formatted table of all CLI commands, key options, and usage examples."
+labels: ["good first issue", "help wanted", "cli", "ux"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Add 'shortcuts' CLI Command
+
+        **Difficulty:** Easy
+        **Area:** CLI / UX
+        **Skills:** TypeScript, Commander.js
+
+        ### What needs to be done
+
+        Add a `shortcuts` sub-command to the InterviewOps CLI (registered in the Commander.js program)
+        that prints a clean, chalk-formatted table showing all available commands, their key options, and
+        a one-line usage example for each. This helps new contributors and users quickly discover what the
+        CLI can do without reading the full README.
+
+        ### Acceptance criteria
+
+        - [ ] `npm run interviewops -- shortcuts` (or `npx interviewops shortcuts`) prints a formatted reference table
+        - [ ] Table covers at minimum: `simulate`, `plan`, `verify`, `doctor`, `demo`, and `shortcuts` itself
+        - [ ] Each row shows: command name, description, key flags, and a short example
+        - [ ] Uses `chalk` for color (already a dependency — no new packages needed)
+        - [ ] Output is readable on Windows (cmd/PowerShell), macOS Terminal, and Linux terminal
+        - [ ] Manually tested on at least one platform and screenshot included in the PR
+
+        ### Files to look at
+
+        - `src/cli/` or `src/index.ts` — where Commander.js commands are registered; add the new command here
+        - `package.json` — check the `scripts` section for how commands are wired
+        - Any existing command file — use as a template for the new command's structure
+
+        ### Getting started
+
+        Find where the Commander.js `program` object is defined (likely `src/index.ts` or a dedicated CLI entry file).
+        Add `.command('shortcuts').description('...').action(() => { ... })`. Inside the action, build a string
+        with chalk-coloured headers and rows, then `console.log` it. Keep it under ~50 lines — no new dependencies,
+        no file I/O needed.
+
+        ### Ethics reminder
+
+        This contribution must not add live interview assistance features. See [ETHICS.md](../../ETHICS.md).

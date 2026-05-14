@@ -1,0 +1,48 @@
+name: "Good First Issue: Add Light/Dark Theme Toggle to Studio"
+description: "Add a theme toggle button to the InterviewOps Studio header that switches between dark and light themes, with localStorage persistence."
+labels: ["good first issue", "help wanted", "ui", "angular"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Add Light/Dark Theme Toggle to Studio
+
+        **Difficulty:** Medium
+        **Area:** UI / Angular
+        **Skills:** Angular 19, CSS custom properties, RxJS
+
+        ### What needs to be done
+
+        InterviewOps Studio (`studio-web/`) currently uses a dark theme only, defined via CSS custom
+        properties in `studio-web/src/styles.css`. Add a theme toggle button to the app header that
+        switches between dark and light themes. The selected theme should persist across page refreshes
+        using `localStorage`. Theme state should be managed with an RxJS `BehaviorSubject` inside a
+        dedicated Angular service.
+
+        ### Acceptance criteria
+
+        - [ ] A theme toggle button (e.g. sun/moon icon) is visible in the Studio header at all times
+        - [ ] Clicking the button switches between dark and light themes without a page reload
+        - [ ] Light theme has legible contrast on all panels (background, text, borders, inputs)
+        - [ ] Theme preference is saved to `localStorage` and restored on page load
+        - [ ] Theme state is managed via a `ThemeService` using an RxJS `BehaviorSubject<'dark' | 'light'>`
+        - [ ] No accessibility regressions — color contrast ratios meet WCAG AA (4.5:1 for normal text)
+        - [ ] No new npm packages required (use existing Angular/RxJS tooling)
+
+        ### Files to look at
+
+        - `studio-web/src/styles.css` — existing CSS custom properties to extend with light-theme overrides
+        - `studio-web/src/app/` — locate the header/shell component to add the toggle button
+        - `studio-web/src/app/app.component.ts` — may be the right place to apply the theme class to the root element
+
+        ### Getting started
+
+        Create `studio-web/src/app/core/theme.service.ts` with a `BehaviorSubject<'dark' | 'light'>` that
+        initialises from `localStorage.getItem('interviewops-theme')`. In `styles.css`, add a `.light-theme`
+        class block that overrides the relevant CSS custom properties. Subscribe to the theme service in
+        `AppComponent` and toggle the `.light-theme` class on `document.body` (or the host element) via
+        Angular's `Renderer2`. Keep the toggle button simple — a single icon button in the header is enough.
+
+        ### Ethics reminder
+
+        This contribution must not add live interview assistance features. See [ETHICS.md](../../ETHICS.md).

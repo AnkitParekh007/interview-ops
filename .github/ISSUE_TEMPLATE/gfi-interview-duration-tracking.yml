@@ -1,0 +1,44 @@
+name: "Good First Issue: Add Session Duration Tracking"
+description: "Track how long each practice session takes and surface start time, end time, and formatted duration in session output files."
+labels: ["good first issue", "help wanted", "cli"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Add Session Duration Tracking
+
+        **Difficulty:** Easy
+        **Area:** CLI
+        **Skills:** TypeScript, date handling
+
+        ### What needs to be done
+
+        Record `startTime` (before the provider call) and `endTime` (after the session completes) in
+        `src/interview/session-runner.ts`. Write both values plus a computed `durationMs` and a
+        human-friendly `durationFormatted` (e.g. `"4m 32s"`) into `metadata.json`. Also include a
+        `Duration:` line in the header section of the generated `session.md` file.
+
+        ### Acceptance criteria
+
+        - [ ] `metadata.json` includes `startTime` (ISO 8601), `endTime` (ISO 8601), `durationMs` (number), and `durationFormatted` (string, e.g. `"4m 32s"`)
+        - [ ] `session.md` header block shows `**Duration:** 4m 32s` (or equivalent)
+        - [ ] Duration of less than 60 seconds is shown as `"Xs"` (no minutes prefix)
+        - [ ] All existing tests in `tests/output-writer.test.ts` still pass
+        - [ ] A new test covers the duration formatting helper function
+
+        ### Files to look at
+
+        - `src/interview/session-runner.ts` — where to capture start/end timestamps
+        - `src/output/output-writer.ts` — where `metadata.json` and `session.md` are written
+        - `tests/output-writer.test.ts` — add/update tests here
+
+        ### Getting started
+
+        Capture `const startTime = new Date()` before the `generateCompletion()` call and `const endTime = new Date()`
+        immediately after. Compute `durationMs = endTime.getTime() - startTime.getTime()`, then write a small
+        helper that converts milliseconds to a `"Xm Ys"` string. Pass the timing data through to the output
+        writer alongside the existing session data.
+
+        ### Ethics reminder
+
+        This contribution must not add live interview assistance features. See [ETHICS.md](../../ETHICS.md).

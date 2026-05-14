@@ -1,0 +1,47 @@
+name: "Good First Issue: Add 'sessions' List/Search Command"
+description: "Add an 'interviewops sessions' command that lists all past session outputs with track, mode, score, and filter support."
+labels: ["good first issue", "help wanted", "cli"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Add 'sessions' List/Search Command
+
+        **Difficulty:** Medium
+        **Area:** CLI
+        **Skills:** TypeScript, file system
+
+        ### What needs to be done
+
+        Add a `sessions` command to the InterviewOps CLI that reads the `output/` directory,
+        finds all session folders, extracts key metadata (date, track, mode, overall score) from
+        each session's `metadata.json` and `scorecard.md`, and prints a sorted list to the terminal.
+        Support `--track <name>` and `--mode <name>` filter flags to narrow the results.
+
+        ### Acceptance criteria
+
+        - [ ] `interviewops sessions` lists all sessions in reverse chronological order (newest first)
+        - [ ] Each row shows: date, track, mode, and overall score (extracted from `scorecard.md` or `metadata.json`)
+        - [ ] `--track <name>` filters results to sessions matching that track (case-insensitive, partial match OK)
+        - [ ] `--mode <name>` filters results to sessions matching that mode (case-insensitive, partial match OK)
+        - [ ] Prints a friendly empty-state message when `output/` is empty or no sessions match the filter
+        - [ ] Output is readable in a standard terminal (80-char width safe)
+        - [ ] Tested manually with at least 2 sessions in `output/`
+
+        ### Files to look at
+
+        - `src/cli/` or `src/index.ts` — where to register the new `sessions` command
+        - `src/output/output-writer.ts` — to understand the folder structure and file names written per session
+        - `output/` (generated at runtime) — the directory this command reads from
+
+        ### Getting started
+
+        Use `fs.readdirSync` to enumerate session folders in `output/`. Each folder should contain
+        `metadata.json` — parse it for date, track, and mode. To extract the overall score, read
+        `scorecard.md` and look for the `**Overall Score**` line with a simple regex. Sort entries
+        by date descending before printing. Add the command with two `.option()` calls for `--track`
+        and `--mode` filtering.
+
+        ### Ethics reminder
+
+        This contribution must not add live interview assistance features. See [ETHICS.md](../../ETHICS.md).

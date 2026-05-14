@@ -1,0 +1,45 @@
+name: "Good First Issue: Expand Mock Provider Question Bank"
+description: "Add at least 10 new realistic questions per track category to the mock provider so practice sessions feel more varied."
+labels: ["good first issue", "help wanted", "provider", "content"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Expand Mock Provider Question Bank
+
+        **Difficulty:** Easy
+        **Area:** provider / content
+        **Skills:** TypeScript, interview knowledge
+
+        ### What needs to be done
+
+        `src/providers/mock.provider.ts` currently ships with 7 questions per mode category
+        (`behavioral`, `frontend-architecture`, `project-deep-dive`, `coding`, `ai-assisted-engineering`).
+        Add at least 10 new, non-duplicate questions to each of those five categories, and add a new
+        `system-design` question set (10+ questions) that is returned when `mode === 'system-design'`.
+        Questions must be realistic, seniority-appropriate, and clearly distinct from existing ones.
+
+        ### Acceptance criteria
+
+        - [ ] Each of the five existing categories receives at least 10 new questions (total ≥ 17 per category)
+        - [ ] A new `system-design` question function is added with at least 10 questions
+        - [ ] `getMockQuestions('system-design')` routes to the new function
+        - [ ] No duplicate questions within a category
+        - [ ] Questions are realistic for a senior-level engineering interview
+        - [ ] All existing mock provider tests still pass (`npm test`)
+
+        ### Files to look at
+
+        - `src/providers/mock.provider.ts` — the five `get*Questions()` functions to expand, and `getMockQuestions()` switch to update
+        - `tests/provider-registry.test.ts` — verify tests still pass after changes
+
+        ### Getting started
+
+        Each question function returns a plain `string[]`. Simply append new questions to the existing arrays,
+        keeping the numbered prefix format (`'8. Question text here.'`). For system design, create a new
+        `getSystemDesignQuestions()` function and add a `case 'system-design':` branch in `getMockQuestions()`.
+        Run `npm test` before opening a PR to confirm nothing regressed.
+
+        ### Ethics reminder
+
+        This contribution must not add live interview assistance features. See [ETHICS.md](../../ETHICS.md).

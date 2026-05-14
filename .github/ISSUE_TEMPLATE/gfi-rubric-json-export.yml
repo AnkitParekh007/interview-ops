@@ -1,0 +1,65 @@
+name: "Good First Issue: Add --json Flag for Rubric Score Export"
+description: "Add a --json flag to the simulate (and verify) command to write a machine-readable rubric-scores.json alongside the standard session files."
+labels: ["good first issue", "help wanted", "cli", "output"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Add --json Flag for Rubric Score Export
+
+        **Difficulty:** Easy
+        **Area:** CLI / output
+        **Skills:** TypeScript, JSON
+
+        ### What needs to be done
+
+        Add a `--json` flag to `interviewops simulate` (and `interviewops verify`) that, when set,
+        writes a `rubric-scores.json` file into the session output folder alongside the existing
+        `session.md`, `scorecard.md`, and `metadata.json` files. The JSON file should capture the
+        structured rubric scores in a format suitable for tooling or dashboards.
+
+        The output format:
+        ```json
+        {
+          "track": "senior-frontend",
+          "mode": "behavioral",
+          "scores": {
+            "Communication Clarity": 4,
+            "Technical Depth": 3,
+            "Ownership and Accountability": 4,
+            "STAR Structure": 3,
+            "Seniority Signal": 4
+          },
+          "overall": 18,
+          "outOf": 25,
+          "timestamp": "2024-06-01T10:30:00.000Z"
+        }
+        ```
+
+        ### Acceptance criteria
+
+        - [ ] `--json` flag is accepted by the `simulate` command (and `verify` if applicable)
+        - [ ] `rubric-scores.json` is written to the session output folder when `--json` is passed
+        - [ ] The JSON is valid and matches the scores shown in `scorecard.md`
+        - [ ] When `--json` is not passed, no `rubric-scores.json` is written (no behaviour change)
+        - [ ] `tests/output-writer.test.ts` includes a test for the new JSON output
+        - [ ] `docs/OUTPUTS.md` documents the new file and its schema
+
+        ### Files to look at
+
+        - `src/cli/` or `src/index.ts` — add `--json` option to the `simulate` command
+        - `src/output/output-writer.ts` — add a `writeRubricJson()` function here
+        - `src/interview/rubric-loader.ts` — understand how rubric dimensions and scores are structured
+        - `tests/output-writer.test.ts` — add the new test here
+        - `docs/OUTPUTS.md` — document the new file
+
+        ### Getting started
+
+        Parse the rubric dimension scores from the existing scorecard data structure (or re-parse
+        `scorecard.md` if scores aren't already in memory). Write the JSON with `JSON.stringify(..., null, 2)`
+        via `fs.writeFileSync`. Wire the `--json` flag through from the CLI entry point to `output-writer.ts`.
+        Keep the feature flag purely additive — no existing output files should change.
+
+        ### Ethics reminder
+
+        This contribution must not add live interview assistance features. See [ETHICS.md](../../ETHICS.md).

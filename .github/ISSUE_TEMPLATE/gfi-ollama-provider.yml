@@ -1,0 +1,48 @@
+name: "Good First Issue: Add Ollama Local Provider"
+description: "Implement an Ollama provider so users can run interviews with local LLMs — no API key required."
+labels: ["good first issue", "help wanted", "provider"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Add Ollama Local Provider
+
+        **Difficulty:** Medium
+        **Area:** provider
+        **Skills:** TypeScript, REST API, local AI
+
+        ### What needs to be done
+
+        Implement `OllamaProvider` in `src/providers/ollama.provider.ts` that calls Ollama's local REST API
+        at `http://localhost:11434/api/generate`. The provider must implement the `InterviewProvider` interface
+        (from `src/providers/provider.types.ts`), be registered in `provider-registry.ts`, and respect the
+        `OLLAMA_MODEL` environment variable (defaulting to `llama3` if not set).
+
+        ### Acceptance criteria
+
+        - [ ] `OllamaProvider.isAvailable()` returns `true` when Ollama is running on port 11434, `false` otherwise (no throw)
+        - [ ] `OllamaProvider.generateCompletion()` works correctly with any locally installed Ollama model
+        - [ ] Provider is registered in `src/providers/provider-registry.ts` under the key `ollama`
+        - [ ] `OLLAMA_MODEL` and `OLLAMA_BASE_URL` are documented in `.env.example`
+        - [ ] `tests/provider-registry.test.ts` includes tests for the Ollama provider
+        - [ ] `docs/PROVIDERS.md` updated with setup instructions (install Ollama, pull a model, set env var)
+
+        ### Files to look at
+
+        - `src/providers/provider.types.ts` — the `InterviewProvider` interface to implement
+        - `src/providers/mock.provider.ts` — reference implementation showing the expected shape
+        - `src/providers/provider-registry.ts` — where to register the new provider
+        - `.env.example` — add `OLLAMA_MODEL` and `OLLAMA_BASE_URL` here
+        - `docs/PROVIDERS.md` — add a section documenting how to use Ollama
+
+        ### Getting started
+
+        Install Ollama from https://ollama.com and run `ollama pull llama3` to get a local model.
+        Use `fetch` (Node 18+) or the `node-fetch` pattern already in the codebase to POST to
+        `http://localhost:11434/api/generate` with `{ model, prompt, stream: false }`.
+        Check `isAvailable()` by making a lightweight GET to `http://localhost:11434/` and returning `false`
+        on any network error — do not throw.
+
+        ### Ethics reminder
+
+        This contribution must not add live interview assistance features. See [ETHICS.md](../../ETHICS.md).

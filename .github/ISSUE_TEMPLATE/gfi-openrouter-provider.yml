@@ -1,0 +1,49 @@
+name: "Good First Issue: Add OpenRouter Provider"
+description: "Implement an OpenRouter provider giving access to 100+ models with a single API key via an OpenAI-compatible API."
+labels: ["good first issue", "help wanted", "provider"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Add OpenRouter Provider
+
+        **Difficulty:** Medium
+        **Area:** provider
+        **Skills:** TypeScript, OpenAI-compatible API
+
+        ### What needs to be done
+
+        Implement `OpenRouterProvider` in `src/providers/openrouter.provider.ts` using the OpenAI-compatible
+        REST API at `https://openrouter.ai/api/v1`. The provider reads `OPENROUTER_API_KEY` and
+        `OPENROUTER_MODEL` (defaulting to `openai/gpt-4o-mini`) from the environment. It must implement
+        the `InterviewProvider` interface from `src/providers/provider.types.ts` and be registered in
+        `provider-registry.ts` under the key `openrouter`.
+
+        ### Acceptance criteria
+
+        - [ ] `OpenRouterProvider` implements the full `InterviewProvider` interface
+        - [ ] `isAvailable()` returns `true` only when `OPENROUTER_API_KEY` is set
+        - [ ] Provider is registered in `src/providers/provider-registry.ts` under the key `openrouter`
+        - [ ] `OPENROUTER_API_KEY` and `OPENROUTER_MODEL` are added to `.env.example` with comments
+        - [ ] `tests/provider-registry.test.ts` updated with coverage for the OpenRouter provider
+        - [ ] `docs/PROVIDERS.md` includes a section documenting OpenRouter setup and model selection
+
+        ### Files to look at
+
+        - `src/providers/provider.types.ts` — the `InterviewProvider` interface to implement
+        - `src/providers/mock.provider.ts` — reference implementation
+        - `src/providers/provider-registry.ts` — registration location
+        - `.env.example` — add the two new env vars here
+        - `docs/PROVIDERS.md` — add OpenRouter setup section
+
+        ### Getting started
+
+        OpenRouter exposes an OpenAI-compatible `/chat/completions` endpoint. Sign up at https://openrouter.ai,
+        grab an API key, and make a POST to `https://openrouter.ai/api/v1/chat/completions` with the standard
+        `messages` array and your chosen `model` string. You can look at how the existing OpenAI provider
+        (`src/providers/openai.provider.ts`) structures its requests and adapt accordingly.
+        The `isAvailable()` check is a simple env var presence check — no network call needed.
+
+        ### Ethics reminder
+
+        This contribution must not add live interview assistance features. See [ETHICS.md](../../ETHICS.md).
