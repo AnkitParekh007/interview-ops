@@ -1,3 +1,10 @@
+:host {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
 .setup {
   display: flex;
   justify-content: center;
@@ -5,7 +12,6 @@
   overflow-y: auto;
   flex: 1;
   min-height: 0;
-  height: 0; /* forces flex child to respect parent height constraint */
 }
 
 .setup-inner {
