@@ -1,0 +1,58 @@
+import { PremiumPack } from '../models/studio.models.js';
+
+export const premiumPacks: PremiumPack[] = [
+  {
+    id: 'angular-senior',
+    name: 'Angular Senior Interview Pack',
+    description: 'Deep-dive Angular interview preparation for senior roles. Covers signals, RxJS patterns, change detection, DI, routing, and advanced architecture.',
+    price: 19,
+    questionsCount: 50,
+    includedTracks: ['angular-developer', 'senior-frontend'],
+    status: 'coming-soon',
+  },
+  {
+    id: 'react-senior',
+    name: 'React Senior Interview Pack',
+    description: 'Comprehensive React interview prep covering hooks, state management, server components, performance optimization, and testing strategies.',
+    price: 19,
+    questionsCount: 50,
+    includedTracks: ['react-developer', 'senior-frontend'],
+    status: 'coming-soon',
+  },
+  {
+    id: 'ai-agentic',
+    name: 'AI Agentic Engineer Pack',
+    description: 'Interview prep for AI agent engineering roles. Covers prompt engineering, output validation, tool use, multi-agent systems, and AI ethics.',
+    price: 29,
+    questionsCount: 40,
+    includedTracks: ['ai-agentic-engineer', 'ai-frontend-engineer'],
+    status: 'coming-soon',
+  },
+  {
+    id: 'system-design-frontend',
+    name: 'System Design for Frontend Pack',
+    description: 'Frontend-focused system design scenarios including component architecture, state management at scale, micro-frontends, and performance.',
+    price: 19,
+    questionsCount: 30,
+    includedTracks: ['senior-frontend', 'fullstack-developer'],
+    status: 'coming-soon',
+  },
+  {
+    id: 'behavioral-star',
+    name: 'Behavioral STAR Story Pack',
+    description: 'Curated behavioral scenarios with STAR framework prompts for leadership, conflict, failure, ownership, and impact stories.',
+    price: 9,
+    questionsCount: 60,
+    includedTracks: ['senior-frontend', 'engineering-manager'],
+    status: 'coming-soon',
+  },
+  {
+    id: 'faang-frontend',
+    name: 'FAANG Frontend Prep Pack',
+    description: 'Interview preparation modeled after FAANG frontend interview loops. Covers coding, system design, behavioral, and culture fit.',
+    price: 29,
+    questionsCount: 45,
+    includedTracks: ['senior-frontend', 'react-developer', 'angular-developer'],
+    status: 'coming-soon',
+  },
+];

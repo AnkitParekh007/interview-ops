@@ -1,0 +1,50 @@
+.card {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.2s;
+}
+.card:hover { border-color: rgba(255,255,255,0.2); }
+.card.recommended { border-color: var(--accent); }
+.recommended-badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 12px;
+  border-radius: 20px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.plan-name { font-size: 16px; font-weight: 700; }
+.plan-price { display: flex; align-items: baseline; gap: 4px; flex-wrap: wrap; }
+.price { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
+.price-period { color: var(--muted); font-size: 13px; }
+.price-yearly { color: var(--muted); font-size: 11px; }
+.plan-desc { color: var(--muted); font-size: 13px; line-height: 1.5; }
+.feature-list { list-style: none; padding: 0; margin: 4px 0; display: flex; flex-direction: column; gap: 7px; flex: 1; }
+.feature-item { display: flex; gap: 8px; font-size: 13px; align-items: flex-start; }
+.check { color: var(--success); flex-shrink: 0; font-weight: 700; }
+.plan-cta {
+  width: 100%;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: auto;
+  transition: all 0.15s;
+}
+.cta-free { background: var(--accent); color: white; border-color: var(--accent); }
+.cta-free:hover { filter: brightness(1.15); }
+.cta-paid { background: transparent; color: var(--muted); }
+.cta-paid:hover { border-color: rgba(255,255,255,0.25); color: var(--text); }

@@ -1,272 +1,153 @@
 # InterviewOps
 
-**Practice developer interviews like a real engineering system.**
+> The ethical, local-first AI interview coach for developers.
 
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-20%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
-[![OpenAI](https://img.shields.io/badge/OpenAI-Compatible-412991?logo=openai&logoColor=white)](https://openai.com/)
-[![Anthropic](https://img.shields.io/badge/Anthropic-Compatible-CC785C)](https://anthropic.com/)
-[![Gemini](https://img.shields.io/badge/Google-Gemini-4285F4?logo=google&logoColor=white)](https://ai.google.dev/)
-[![Local First](https://img.shields.io/badge/Local--First-No%20Server-black)](.)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
-[![Ethical AI](https://img.shields.io/badge/Ethical%20AI-Practice%20Only-green)](./ETHICS.md)
-
-InterviewOps is an **open-source, local-first AI interview practice system** for developers. Practice coding, system design, behavioral, project deep-dive, frontend architecture, and AI-assisted engineering interviews — using your own model provider, on your own machine, with no hidden backend.
-
-> ⭐ If this helps you prepare better, please star the repo so more developers can find it.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![CI](https://github.com/AnkitParekh007/interview-ops/actions/workflows/ci.yml/badge.svg)](https://github.com/AnkitParekh007/interview-ops/actions)
 
 ---
 
-## What is InterviewOps?
-
-InterviewOps is a TypeScript CLI and agent workflow for **realistic developer interview preparation**.
-
-You run it locally, point it at your resume and job description, choose a role track and interview mode, and it generates:
-
-- A full set of realistic interview questions
-- Rubric-based scoring and feedback
-- Improved answer examples
-- A personalized 2-week study plan
-- An ethics notice (practice-only, always)
-
-It works out of the box with the built-in **mock provider** — no API key required.
+> 📸 Screenshot coming soon: InterviewOps Studio chat interface
+> 📸 Screenshot coming soon: Human avatar coach
+> 📸 Screenshot coming soon: Readiness report
 
 ---
 
-## Why developers star this
+## Why InterviewOps
 
-- **Local-first** — runs entirely on your machine, no hosted backend
-- **Bring your own model key** — OpenAI, Anthropic, Gemini, or mock
-- **Mock mode works without any API key** — great for CI, demos, contributors
-- **Role-based tracks** — 9 tracks from junior frontend to AI agentic engineer
-- **Rubric-based feedback** — structured scoring, not just raw opinions
-- **Markdown session outputs** — readable, diffable, storable files
-- **Ethical by design** — no live cheating features, ever
-- **Easy to fork and extend** — add a provider, track, mode, or rubric in minutes
-- **Built for modern AI-assisted engineering interviews** — covers prompting, output validation, AI ethics
+Most interview AI tools focus on live interview assistance — feeding answers during real interviews.
 
----
+**InterviewOps is different. We focus on real preparation.**
 
-## What you can practice
+| Feature | InterviewOps | Real-time interview assistants |
+|---------|:---:|:---:|
+| Local-first (your data stays on your machine) | ✅ | ❌ |
+| Practice-only ethics | ✅ | ❌ |
+| Open-source core | ✅ | ❌ |
+| Developer-specific tracks (Angular, React, AI) | ✅ | ❌ |
+| Resume/JD-aware questions | ✅ | ✅ |
+| Readiness reports & weakness maps | ✅ | ❌ |
+| STAR story bank | ✅ | ❌ |
+| Low cost — BYOK model | ✅ | ❌ |
 
-| Interview Type | Description |
-|---|---|
-| Recruiter Screen | Role fit, motivation, communication clarity |
-| Behavioral | STAR answers, leadership, conflict, ownership, failure/learning |
-| Coding | Problem-solving, complexity, edge cases, testing |
-| System Design | Requirements, architecture, data modeling, scalability, tradeoffs |
-| Frontend Architecture | Component design, state, performance, accessibility, design systems |
-| Angular | Signals, RxJS, change detection, DI, routing, forms |
-| React | Hooks, state, effects, performance, server components |
-| Project Deep-Dive | Past project storytelling, architecture decisions, metrics, lessons |
-| Debugging | Process, hypothesis, root cause analysis, fix validation |
-| Code Review | Readability, risks, security, maintainability |
-| AI-Assisted Engineering | Prompting, validating AI output, ethics, debugging generated code |
-| Take-Home Review | Code quality, README, architecture, test coverage |
-| Candidate Questions | What to ask the interviewer |
+[Full comparison →](docs/COMPARISON.md)
 
 ---
 
-## Quick Start
+## Features
+
+- **9 interview tracks** — Angular, React, AI engineer, fullstack, senior frontend, EM, DevRel, and more
+- **13 interview modes** — behavioral, coding, system design, frontend architecture, Angular, React, AI-assisted engineering, and more
+- **ChatGPT-like practice interface** — conversational mock interviews in a browser
+- **Human avatar coach** — animated SVG avatar that reacts to session state
+- **Candidate profile** — upload resume text and job description for personalized questions
+- **Readiness report** — hire signal, weakness map, top actions, 30-day study plan
+- **STAR story bank** — prepare and store your behavioral answers
+- **Progress dashboard** — track sessions, scores, and weak areas over time
+- **Export** — Markdown and print-ready HTML exports
+- **Local-first** — all data stored on your machine in `.interviewops-studio/`
+- **Ethics guardrails** — built-in blocks against live interview cheating
+
+---
+
+## Quick Start — InterviewOps Studio (UI)
 
 ```bash
 git clone https://github.com/AnkitParekh007/interview-ops.git
 cd interview-ops
 npm install
-cp .env.example .env
-npm run demo
+cd studio-api && npm install && cd ..
+cd studio-web && npm install && cd ..
+npm run studio
 ```
 
-The demo runs with the **mock provider** — no API key needed.
-
----
-
-## Model Provider Setup
-
-Default (no API key needed):
-```
-INTERVIEWOPS_PROVIDER=mock
-```
-
-OpenAI:
-```
-INTERVIEWOPS_PROVIDER=openai
-OPENAI_API_KEY=sk-...
-OPENAI_MODEL=gpt-4.1-mini
-```
-
-Anthropic:
-```
-INTERVIEWOPS_PROVIDER=anthropic
-ANTHROPIC_API_KEY=sk-ant-...
-ANTHROPIC_MODEL=claude-3-5-sonnet-latest
-```
-
-Google Gemini:
-```
-INTERVIEWOPS_PROVIDER=gemini
-GEMINI_API_KEY=AIza...
-GEMINI_MODEL=gemini-2.0-flash
-```
+Open `http://localhost:4200`
 
 ---
 
-## CLI Usage
+## Quick Start — CLI
 
 ```bash
-# Check your setup
-npm run doctor
-
-# See available tracks
-npm run tracks
-
-# See available modes
-npm run modes
-
-# Run a simulation (mock provider, no API key needed)
+npm install
+cp .env.example .env
+npm run demo       # Full demo (no API key needed)
 npm run simulate -- --track senior-frontend --mode behavioral
-npm run simulate -- --track angular-developer --mode frontend-architecture
-npm run simulate -- --track ai-agentic-engineer --mode ai-assisted-engineering
-
-# Generate a prep plan from your resume + job description
-npm run plan -- --resume input/resume.example.md --job input/job-description.example.md
-
-# Evaluate a written answer
-npm run answer -- --session output/sessions/2026-05-13-senior-frontend-behavioral --file input/answer.example.md
-
-# Verify session output files
-npm run verify
-
-# Initialize workspace
-npm run init
-
-# Copy example input files
-npm run examples
 ```
 
 ---
 
-## How it works
+## InterviewOps Studio
+
+The local Angular interview practice interface.
 
 ```
-Resume / Job Description / Track
-          ↓
-    Interview Mode
-          ↓
-        Rubric
-          ↓
-     AI Provider
-     (mock / OpenAI / Anthropic / Gemini)
-          ↓
-   Session Packet
-          ↓
-Scorecard + Feedback + Improved Answers
-          ↓
-      Study Plan
+npm run studio
 ```
 
----
+Starts:
+- API: `http://localhost:4317`
+- UI: `http://localhost:4200`
 
-## Example Output
-
-After running `npm run simulate`, you get:
-
-```
-output/sessions/2026-05-13-senior-frontend-behavioral/
-  session.md           — full interview session with questions
-  questions.md         — interview questions and follow-ups
-  scorecard.md         — rubric-based scores (1–5 per dimension)
-  feedback.md          — strengths, improvements, hire signal
-  improved-answers.md  — before/after answer examples
-  study-plan.md        — 7-day and 14-day prep plan
-  ethics-notice.md     — practice-only statement
-  metadata.json        — session metadata (track, mode, provider, model)
-```
+Features: chat interface, avatar coach, session history, readiness reports, STAR bank, dashboard.
 
 ---
 
-## Ethical Use
+## Pricing
 
-InterviewOps is designed for **genuine interview preparation**.
+| Plan | Price | Key features |
+|------|-------|-------------|
+| Free | $0 | Unlimited mock sessions, scorecard, study plan |
+| Pro | $9/mo | Readiness reports, STAR bank, PDF export, dashboard |
+| Job Hunt Mode | $19/mo | Resume/JD questions, premium packs, 30-day plan |
+| Lifetime Early Bird | $49 one-time | All Pro features forever |
+| Team / Bootcamp | $5–8/user/mo | Cohort tracking, custom tracks |
 
-- ✅ Use it before your interview to practice
-- ✅ Use it to improve your communication and technical knowledge
-- ✅ Use it to understand your weak areas and build a study plan
-- ❌ Do NOT use it during a live interview
-- ❌ Do NOT use it as hidden live assistance
-- ❌ Do NOT use it to deceive interviewers or misrepresent your skills
-
-See [ETHICS.md](./ETHICS.md) for the full ethical use policy.
-
----
-
-## Available Tracks
-
-| Track | Description |
-|---|---|
-| `junior-frontend` | Junior developers (0–2 years) |
-| `senior-frontend` | Senior frontend engineers (5–10 years) |
-| `angular-developer` | Angular specialists |
-| `react-developer` | React specialists |
-| `fullstack-developer` | Full-stack engineers |
-| `ai-frontend-engineer` | Frontend engineers building AI-powered products |
-| `ai-agentic-engineer` | Engineers building AI agent systems |
-| `devrel-engineer` | Developer relations engineers |
-| `engineering-manager` | Engineering managers |
+> Payments not enabled yet. [Full pricing details →](docs/PRICING.md)
 
 ---
 
-## Available Modes
+## Ethics
 
-`recruiter-screen` · `behavioral` · `coding` · `system-design` · `frontend-architecture` · `angular` · `react` · `project-deep-dive` · `debugging` · `code-review` · `ai-assisted-engineering` · `take-home-review` · `candidate-questions`
+InterviewOps is for **practice before interviews**, not cheating during them.
 
----
+- No hidden overlays
+- No real-time answer injection
+- No screen-share bypass
+- No stealth mode
+- Practice-only mode enforced in every session
 
-## Roadmap
-
-- [x] CLI MVP
-- [x] Mock provider (no API key)
-- [x] OpenAI provider
-- [x] Anthropic provider
-- [x] Gemini provider
-- [x] 9 role-based tracks
-- [x] 13 interview modes
-- [x] Rubric-based scoring and feedback
-- [x] Resume + JD prep plan generator
-- [x] Session output files (scorecard, feedback, study plan)
-- [x] Ethical use guardrails
-- [ ] Voice practice mode
-- [ ] Local web UI for session preview
-- [ ] Ollama provider (local models)
-- [ ] OpenRouter provider
-- [ ] Coding sandbox with test-case runner
-- [ ] System design diagram prompts
-- [ ] Progress dashboard
-- [ ] Docusaurus documentation website
-
-See [ROADMAP.md](./ROADMAP.md) for the full roadmap.
+[Read the full ethics policy →](ETHICS.md)
 
 ---
 
 ## Contributing
 
-We welcome contributions of all kinds:
+We welcome contributions! Good first issues are labeled in GitHub.
 
-- **Add a provider** — Ollama, OpenRouter, Groq, Mistral
-- **Add a track** — new role types
-- **Add a mode** — new interview types
-- **Add a rubric** — better evaluation dimensions
-- **Improve examples** — more realistic input/output examples
-- **Improve docs** — clearer explanations
+```bash
+npm test        # Run CLI tests
+npm run build   # Build TypeScript
+npm run lint    # Lint
+```
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for the full guide.
+[Contributing guide →](CONTRIBUTING.md) | [Good first issues →](docs/GOOD_FIRST_ISSUES.md)
+
+---
+
+## Roadmap
+
+- [x] CLI MVP (v0.1.0)
+- [x] Angular Studio MVP (v0.2.0)
+- [x] Readiness reports, STAR bank, dashboard (v0.3.0)
+- [ ] Real AI provider integration in Studio (v0.4.0)
+- [ ] Streaming responses (v0.4.0)
+- [ ] Pro plan + Stripe (v0.5.0)
+- [ ] Desktop app (v1.0.0)
+
+[Full roadmap →](ROADMAP.md)
 
 ---
 
 ## License
 
-MIT — see [LICENSE](./LICENSE).
-
----
-
-*Built for developers, by developers. Practice hard. Interview well. Build real skill.*
+MIT — see [LICENSE](LICENSE)

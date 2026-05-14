@@ -6,6 +6,43 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.3.0] — 2026-05-14
+
+### Added
+
+**Competitive Differentiators**
+- Resume + job description upload (text input)
+- Personalized interview questions from candidate profile
+- Readiness report: score, hire signal, weakness map, 30-day study plan
+- STAR story bank with full CRUD (8 categories: leadership, conflict, failure, ownership, impact, technical-depth, collaboration, ambiguity)
+- Progress dashboard: session stats, weakness areas, recommended next mode
+- Export: Markdown and print-ready HTML
+- Onboarding flow for first-time users
+- Pricing page with 5 plans
+- Premium packs page (coming soon)
+- Local JSON file persistence in `.interviewops-studio/`
+
+---
+
+## [0.2.0] — 2026-05-13
+
+### Added
+
+**InterviewOps Studio**
+- Local Angular 19 Studio app at `http://localhost:4200`
+- Local Express API at `http://localhost:4317`
+- ChatGPT-like mock interview chat interface
+- Human avatar coach with 9 animated states (idle, greeting, listening, thinking, speaking, encouraging, challenging, scoring, celebrating)
+- Session history sidebar
+- Track/mode/provider selector
+- Scorecard panel
+- Study plan panel
+- Ethics notice (always visible)
+- `npm run studio` command to launch both API and UI
+- 9 new API routes for sessions, messages, tracks, modes, providers, health
+
+---
+
 ## [0.1.0] — 2026-05-13 🚀 Initial Release
 
 ### Added

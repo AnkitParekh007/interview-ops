@@ -11,6 +11,8 @@ import reportsRoutes from './routes/reports.routes.js';
 import starStoriesRoutes from './routes/star-stories.routes.js';
 import dashboardRoutes from './routes/dashboard.routes.js';
 import exportRoutes from './routes/export.routes.js';
+import plansRoutes from './routes/plans.routes.js';
+import premiumPacksRoutes from './routes/premium-packs.routes.js';
 
 const app = express();
 app.use(cors({ origin: 'http://localhost:4200' }));
@@ -27,6 +29,8 @@ app.use('/api', reportsRoutes);
 app.use('/api', starStoriesRoutes);
 app.use('/api', dashboardRoutes);
 app.use('/api', exportRoutes);
+app.use('/api', plansRoutes);
+app.use('/api', premiumPacksRoutes);
 
 const PORT = 4317;
 

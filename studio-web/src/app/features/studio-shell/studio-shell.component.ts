@@ -33,6 +33,7 @@ import { ReadinessReportPanelComponent } from '../readiness-report-panel/readine
           <button class="nav-link" (click)="navigateTo('/dashboard')">Dashboard</button>
           <button class="nav-link" (click)="navigateTo('/star-stories')">STAR Bank</button>
           <button class="nav-link" (click)="navigateTo('/profile')">Profile</button>
+          <button class="nav-link" (click)="navigateTo('/pricing')">Pricing</button>
         </nav>
         <div class="header-badge">Practice-only mode</div>
       </header>

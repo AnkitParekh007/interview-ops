@@ -1,0 +1,28 @@
+.pricing-page {
+  padding: 40px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow-y: auto;
+  flex: 1;
+}
+.pricing-header { text-align: center; margin-bottom: 40px; }
+.pricing-title { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
+.pricing-sub { color: var(--muted); font-size: 15px; margin-bottom: 16px; }
+.pricing-notice {
+  display: inline-block;
+  padding: 8px 16px;
+  background: rgba(245,158,11,0.1);
+  border: 1px solid rgba(245,158,11,0.25);
+  border-radius: 8px;
+  color: var(--warning);
+  font-size: 12px;
+}
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.pricing-footer { text-align: center; color: var(--muted); font-size: 13px; line-height: 2; }
+.packs-link { color: var(--accent-2); text-decoration: none; font-weight: 500; }
+.packs-link:hover { text-decoration: underline; }

@@ -1,29 +1,30 @@
 ## Summary
 
-<!-- What does this PR do? Why? -->
+Brief description of what this PR does.
 
-## Type of Change
+## What changed
 
-- [ ] Bug fix
-- [ ] New feature (provider, track, mode, rubric, CLI command)
-- [ ] Documentation
-- [ ] Refactor / code quality
-- [ ] Tests
+- 
+- 
+- 
 
-## Checklist
+## Screenshots
+
+(if UI changes)
+
+## Validation
 
 - [ ] `npm run build` passes
-- [ ] `npm test` passes (all tests green)
-- [ ] `npm run demo` completes successfully
-- [ ] `npm run verify` passes
-- [ ] Ethics guardrails are not weakened
-- [ ] No real personal data in examples
-- [ ] No API keys committed
-- [ ] PR description explains the "why", not just the "what"
+- [ ] `npm test` passes
+- [ ] `npm run studio:build` passes (if studio changes)
 
-## Ethics Check
+## Ethics checklist
 
-- [ ] This PR does not add live interview assistance features
-- [ ] This PR does not add real-time answer injection
-- [ ] This PR does not add screen-share evasion
-- [ ] This PR maintains the ethics-notice.md in all session outputs
+- [ ] This PR does not add live interview assistance
+- [ ] This PR does not add hidden overlays or answer injection
+- [ ] This PR does not add screen-share bypass or stealth features
+- [ ] This PR is consistent with ETHICS.md
+
+## Breaking changes
+
+None / describe here.
