@@ -13,6 +13,14 @@ InterviewOps is an open-source CLI and Angular web app that runs structured mock
 
 ---
 
+## Recruiter Review Path
+
+- 30 seconds: scan the Studio screenshots and the feature table
+- 3 minutes: run `npm run demo` and read **What this proves**
+- 10 minutes: inspect the provider registry, tracks, rubrics, and ethics guardrails
+
+---
+
 ## What this proves
 
 For recruiters and hiring managers: this project demonstrates deliberate, production-quality engineering decisions across multiple disciplines.
@@ -207,9 +215,12 @@ Starts:
 
 Features: chat interface, animated avatar coach, session history, readiness reports, STAR story bank, progress dashboard, prep plan viewer, export to Markdown.
 
-> Screenshot placeholder — Studio chat interface
+Planned proof assets:
 
-> Screenshot placeholder — Readiness report with hire signal
+- `docs/assets/interviewops-studio-chat.png`
+- `docs/assets/readiness-report.png`
+- `docs/assets/avatar-coach.png`
+- `docs/assets/demo-terminal.gif`
 
 See [docs/architecture.md](docs/architecture.md) for the Studio architecture details.
 
