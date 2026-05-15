@@ -222,6 +222,22 @@ Proof assets:
 - `docs/assets/avatar-coach.png`
 - `docs/assets/demo-terminal.gif`
 
+<p align="center">
+  <img src="docs/assets/interviewops-studio-chat.png" alt="InterviewOps Studio chat screenshot" width="860" />
+</p>
+
+<p align="center">
+  <img src="docs/assets/readiness-report.png" alt="InterviewOps readiness report screenshot" width="860" />
+</p>
+
+<p align="center">
+  <img src="docs/assets/avatar-coach.png" alt="InterviewOps avatar coach screenshot" width="860" />
+</p>
+
+<p align="center">
+  <img src="docs/assets/demo-terminal.gif" alt="InterviewOps terminal demo GIF" width="860" />
+</p>
+
 See [docs/architecture.md](docs/architecture.md) for the Studio architecture details.
 
 ---
