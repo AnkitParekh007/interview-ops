@@ -215,7 +215,7 @@ Starts:
 
 Features: chat interface, animated avatar coach, session history, readiness reports, STAR story bank, progress dashboard, prep plan viewer, export to Markdown.
 
-Planned proof assets:
+Proof assets:
 
 - `docs/assets/interviewops-studio-chat.png`
 - `docs/assets/readiness-report.png`
